@@ -40,16 +40,24 @@ import DailyBonusScreen from './components/DailyBonusScreen';
 
 
 import ForgotPasswordScreen from './components/ForgotPasswordScreen';
-const customFonts = {
-  Rubik: require("./assets/fonts/Rubik.ttf"),
-};
+
+
+
+import { StatusBar } from 'expo-status-bar';
+// import React, { useState } from 'react';
+import { registerRootComponent } from 'expo';
+import AppLoading from 'expo-app-loading';
+import useFonts from './hooks/useFonts';
+
+// const customFonts = {
+//     Rubik: require("./assets/fonts/Rubik.ttf"),
+// };
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 
 function Home() {
-  
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -130,6 +138,23 @@ function Home() {
   const store = createStore(reducer, middleware)
   
   const [loading, setLoading] = useState(false);
+
+
+  const [IsReady, SetIsReady] = useState(false);
+
+  const FontLoading = async () => {
+    await useFonts(); // Font is being loaded here
+  };
+
+  if (!IsReady) {
+    return (
+      <AppLoading
+        startAsync={FontLoading}
+        onFinish={() => SetIsReady(true)}
+        onError={() => {}}
+      />
+    );
+  }
   return (
     <Provider store={store}>
       <View style={styles.container}>
@@ -207,10 +232,12 @@ function Home() {
   );
 }
 
+registerRootComponent(App);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+    // fontFamily: 'Rubik',
   },
 });
 
