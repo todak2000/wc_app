@@ -1,8 +1,8 @@
 import React from 'react'
-import { Text,StyleSheet, View} from 'react-native'
+import { Text,StyleSheet, View, ScrollView, ImageBackground} from 'react-native'
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux';
-import { StyleSheet, View, ScrollView, ImageBackground} from 'react-native'
+// import { StyleSheet, View, ScrollView, ImageBackground} from 'react-native'
 import Card from './WalletComponents/Card'
 import ConverHistory from './WalletComponents/ConverHistory'
 import Greencard from './WalletComponents/Greencard'
@@ -16,15 +16,15 @@ import img from "../assets/walletBackimage.png";
 
     return (
         <View style={styles.container}>
-             <Card textOne="Wallet Balance" textTwo="WC" balance={parseFloat(props.user.tokenBalance).toFixed(2)}/>
-          {/* <ImageBackground source={img} resizeMode="cover" style={styles.image}>
-             <Card textOne="Your WasteCoin" textTwo="WC" balance="123.67"/>
-          </ImageBackground>    */}
+             {/* <Card textOne="Wallet Balance" textTwo="WC" balance={parseFloat(props.user.tokenBalance).toFixed(2)}/> */}
+          <ImageBackground source={img} resizeMode="cover" style={styles.image}>
+             <Card textOne="Your WasteCoin" textTwo="WC" balance={parseFloat(props.user.tokenBalance).toFixed(2)}/>
+          </ImageBackground>   
              <View style={styles.flexBtw}>
               <Greencard textOne="Spend" textTwo="Go to Shop and make orders" onPress={()=>{navigation.navigate("Marketplace")}}/>
               <Greencard textOne="Claim bonus" textTwo="Go to Shop and make orders" onPress={()=>{navigation.navigate("Bonus")}}/>
              </View>
-              <ConverHistory text="Conversion History" symbol=">"/>
+              <ConverHistory text="Conversion History"/>
               <TransHead/>
               <ScrollView style={styles.scrollView}>
                 <TImeFrame day="Today"/>

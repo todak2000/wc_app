@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native'
+import { StyleSheet,View, Text} from 'react-native'
 import DiscountTrans from '../SVGComponents/DiscountTrans'
 import MoneyStar from '../SVGComponents/MoneyStar'
 import Youtubetrans from '../SVGComponents/Youtubetrans'
@@ -11,17 +11,16 @@ const TransCard = (props) => {
 
 
     return (
-        <TouchableOpacity style={styles.container} >
+        <View style={styles.container} >
             <View style={styles.leftPart}>
             {textWord.includes("discount")? <DiscountTrans/> : textWord.includes("youtube")? <Youtubetrans/> : <MoneyStar/> } 
 
                 <Text  style={styles.textWord}>{textWord}</Text>
             </View>
             <View style={styles.rightPart}> 
-                {/* <Text style={styles.textDate}>{textDate}</Text> */}
                 <Text style={styles.textCoin}>{textCoin}</Text>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
