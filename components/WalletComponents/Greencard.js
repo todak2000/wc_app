@@ -21,11 +21,11 @@ import Claim from '../SVGComponents/Claim'
 export default Greencard
 const styles = StyleSheet.create({
     container: {
-      width:"48%",
+      width:"49%",
       backgroundColor:"#CFFFC7",
       borderRadius: 3,
       shadowRadius: 1,
-      padding:"5%",
+      padding:"2%",
       flexDirection:"row",
       marginTop:50,
       justifyContent:"flex-start",
@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
 
     textOne:{
       color:"#4F9A51",
-      fontSize: 16,
+      fontSize: 13,
       fontFamily:'Rubik',
       marginLeft:10,
     },
     textTwo:{
         color:"#4F9A51",
-        fontSize: 10,
+        fontSize: 8,
         fontFamily:'Rubik',
         width:"70%",
         marginLeft:10,

@@ -65,25 +65,26 @@ import { SignUp } from '../actions/index';
                 }
                 else{
                    const data = {
-                    userName: values.username,
+                    username: values.username,
                     email: values.email,
                     password: values.password,
-                    phoneNumber: countryCode + values.phone,
+                    phone: countryCode + values.phone,
                     area:values.area,
                     type:"manual",
-                    // countryCode:countryCode, 
+                    countryCode:countryCode, 
                     country:country
 
                   }
+                  console.log(data)
                   setLoading(true);
                   signUpApi(data).then(res=>{
                     if (res){
                       console.log(res)
-                      if (res.message ==="User was successfully registered"){
+                      if (res.status === 200){
                         setTimeout(() => {
                           setLoading(false);
-                          navigation.navigate("SignIn")
-                          // navigation.navigate("Verification", {user_id:res.user_id})
+                          // navigation.navigate("SignIn")
+                          navigation.navigate("Verification")
                         }, 3000)
                       }
                       else{

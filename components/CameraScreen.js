@@ -15,6 +15,7 @@ import Button from './AuthComponents/Button';
   const [fail, setFail] = useState(false);
   const [mesg, setMesg] = useState("");
   const [photos, setPhotos] = useState(null);
+  // console.log(props)
   let camera: Camera
   const __takePicture = async () => {
     setLoading(true)
@@ -35,30 +36,21 @@ import Button from './AuthComponents/Button';
       // Upload the image using the fetch and FormData APIs
       let formData = new FormData();
       // Assume "photo" is the name of the form field the server expects
-      formData.append('imageObject', { uri: x , name: filename, type });
+      formData.append('photo', { uri: x , name: filename, type });
+      formData.append('user_id', props.user.user_id)
       
       snapApi(formData).then(res=>{
-        // console.log(res.data.Tags)
-        const recyclables = ['Coke', 'Bottle', 'Bottles', 'Plastic', 'Plastics', 'Tin', 'Can']
-        setLoading(false);
         if (res){
-          if (res.message ==="Image successful" && res.status === true){
-            let isRecyclable = res.data.Tags.some(r=> recyclables.includes(r))
-            
+          if (res.success === true && res.status === 200){
             setLoading(false);
-            if(isRecyclable){
-              setSuceed(true)
-              setMesg("Congratulations! you just earned 0.1WC")
-            }
-            else{
-              setFail(true)
-              setMesg("Sorry! we aren't so sure it a recyclable item. Kindly Snap again")
-            }
+            setSuceed(true)
+            setMesg(res.message)
+            
           }
           else{
             setLoading(false);
-              setMesg(res.message)
-              setFail(true)
+            setMesg(res.message)
+            setFail(true)
           }
         }
       })
@@ -116,7 +108,7 @@ import Button from './AuthComponents/Button';
                 </View>
               }
               {loading && <Text style={styles.progress}>Scanning in Progress...</Text>}
-              {fail && <Button buttonText="Scan Again" onPress={()=>setFail(false)}/>}
+              {fail && <Button buttonText="Scan Again" onPress={()=>{setFail(false); setPhotos(null)}}/>}
               {suceed && <Button buttonText="Check Wallet" onPress={()=>{navigation.navigate("Wallet")}}/>}
               
           </View>
@@ -128,8 +120,7 @@ import Button from './AuthComponents/Button';
 // export default CameraScreen
 function mapStateToProps (state) {
   return {
-    user: state.user,
-    user_id: state.user_id
+    user: state.user
   }
 }
 

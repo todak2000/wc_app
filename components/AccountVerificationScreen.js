@@ -7,7 +7,8 @@ import { Formik } from 'formik';
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { activateAccount } from '../actions/index';
+import { activateAccount} from '../actions/index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
  function AccountVerificationScreen(props){
@@ -15,9 +16,22 @@ import { activateAccount } from '../actions/index';
   const {navigation, activateAccountApi, user_id} = props
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [userId, setUserId] = useState("");
   useEffect(() => {
     setMessage("");
+    const getToken = async ()=>{  
+      try{  
+        let token = await AsyncStorage.getItem('token');  
+        setUserId(token)
+      }  
+      catch(error){  
+        console.log(error)  
+      }  
+    }
+    getToken();
+     
   }, []);
+  
     return (
 
         <View style={styles.container}>
@@ -28,12 +42,15 @@ import { activateAccount } from '../actions/index';
               initialValues={{ code: '' }}
               onSubmit={values => 
                 {
+                  
                   const data = {
                     code: values.code,
-                    user_id: user_id,
+                    user_id: userId,
 
                   }
+                  console.log(data)
                   activateAccountApi(data).then(res=>{
+                    setLoading(true);
                     if (res){
                       if (res.success ===true && res.status === 200){
                         setTimeout(() => {

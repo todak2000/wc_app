@@ -53,25 +53,34 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                 const data = {
                   email: values.email,
                   password: values.password,
-                  type:"manual"
+                  // type:"manual"
 
                 }
                 // console.log(data)
                 signInApi(data).then(res=>{
                   // console.log(res)
                   if (res){
-                    if (res.message === "User was successfully login"){
+                    if (res.status === 200){
                       setTimeout(() => {
                         setLoading(false);
+                        setMessage("")
                         navigation.navigate("Home")
+                      }, 3000)
+                    }
+                    else if (res.status === 205){
+                      setLoading(false);
+                      setMessage(res.message)
+                      setTimeout(() => {
+                        setMessage("")
+                        navigation.navigate("Verification")
                       }, 3000)
                     }
                     else{
                       setLoading(false);
                       setMessage(res.message)
-                      setTimeout(() => {
-                        setMessage("")
-                      }, 3000)
+                      // setTimeout(() => {
+                      //   navigation.navigate("Verification")
+                      // }, 3000)
                     }
                   }
                 }

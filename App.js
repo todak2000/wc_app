@@ -34,7 +34,10 @@ import ProfileGreen from './components/TabComponents/ProfileGreen';
 import NotificationGreen from './components/TabComponents/NotificationGreen';
 import CameraScreen from './components/CameraScreen';
 import BonusScreen from './components/BonusScreen';
+import AddFriendScreen from './components/AddFriendScreen';
+import DailyBonusScreen from './components/DailyBonusScreen';
 // import { bindActionCreators } from 'redux';
+
 
 import ForgotPasswordScreen from './components/ForgotPasswordScreen';
 const customFonts = {
@@ -43,6 +46,7 @@ const customFonts = {
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 
 function Home() {
   
@@ -105,7 +109,8 @@ function Home() {
         shadowOpacity: 0.1,
         shadowRadius: 1,
         borderRadius:50,
-        alignItems:"center",
+        // height:70,
+        // paddingTop:"7%",
         
       },
       
@@ -120,29 +125,8 @@ function Home() {
   );
 }
 
-export default function App() {
-  // const {navigation} = props;
-  // console.log(navigation)
-  useEffect(() => {
-    
-    
-    // setLoading(true);
-    // const userID = async ()=>{  
-    //   try{  
-    //     let user = await AsyncStorage.getItem('user_id');  
-         
-    //     // return user 
-    //     setUserid(user)
-    //     setLoading(false);
-    //     console.log(userid);
-    //     // navigation.navigate("Home")
-    //   }  
-    //   catch(error){  
-    //     console.log(error)  
-    //   }  
-    // }  
-    // userID()
-  }, []);
+ export default function App() {
+  
   const store = createStore(reducer, middleware)
   
   const [loading, setLoading] = useState(false);
@@ -204,6 +188,16 @@ export default function App() {
           component={BonusScreen} 
           options={{ headerShown: false} }
         />
+        <Stack.Screen 
+          name="AddFriend" 
+          component={AddFriendScreen} 
+          options={{ headerShown: false} }
+        />
+        <Stack.Screen 
+          name="DailyBonus" 
+          component={DailyBonusScreen} 
+          options={{ headerShown: false} }
+        />
         
       </Stack.Navigator>
           
@@ -222,13 +216,13 @@ const styles = StyleSheet.create({
 
 // function mapStateToProps (state) {
 //   return {
-//     user: state.user
+//     lastBonusDate: state.date
 //   }
 // }
 
 // function mapDispatchToProps (dispatch ) {
 //   return {
-//     getUser: bindActionCreators(getUser, dispatch)
+//     RestartBonusStateApi: bindActionCreators(RestartBonusState, dispatch)
 //   }
 // }
 // export default connect(
