@@ -7,7 +7,7 @@ import ShopCoin from '../SVGComponents/ShopCoin'
 
  function Card(props){
 
-   const {balance, textOne, textTwo} = props
+   const {balance, textOne, textTwo, recycleCount} = props
     return (
            <View style={styles.container}>
     
@@ -23,16 +23,16 @@ import ShopCoin from '../SVGComponents/ShopCoin'
                 <Text style={styles.textBig}>{balance}</Text>
             </View>
             <View style={styles.childContainer}>
-                <View style={styles.childLeft} >
+                {/* <View style={styles.childLeft} >
                    <ShopCoin/>
                     <Text style={styles.childWord}>
                       Shop:<Text style={styles.childShop}>12 </Text>
                     </Text>
-                </View>
+                </View> */}
                 <View style={styles.childRight}>
-                 <Convert/>
+                    <Convert/>
                     <Text style={styles.childWord}>
-                    Conv.:<Text style={styles.childConv}>50</Text>
+                    <Text style={styles.childConv}>{recycleCount}</Text>
                     </Text>
                 </View>
             </View>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        marginLeft:16,
+        marginLeft:5,
       },
       childWord:{
         color: '#ffffff',

@@ -26,14 +26,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
         // return user 
         setUserid(user)
         setLoading(false);
-        // console.log(userid);
         if(userid !== null){
           navigation.navigate("Home")
         }
-        // navigation.navigate("Home")
       }  
       catch(error){  
-        console.log(error)  
+        return error 
       }  
     }  
     userID()
@@ -75,12 +73,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                         navigation.navigate("Verification")
                       }, 3000)
                     }
-                    else{
+                    else {
                       setLoading(false);
                       setMessage(res.message)
-                      // setTimeout(() => {
-                      //   navigation.navigate("Verification")
-                      // }, 3000)
                     }
                   }
                 }

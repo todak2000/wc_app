@@ -44,7 +44,7 @@ import { SignUp } from '../actions/index';
           <Spinner visible={loading}/>
             <Text style={styles.HeaderText}>Create an Account</Text>
             <Formik
-            initialValues={{ username: '', email:'', password:'', phone:'', area:'' }}
+            initialValues={{ username: '', email:'', password:'', phone:'', area:'', code:'' }}
             onSubmit={values => 
               {
                 // navigation.navigate("Verification")
@@ -70,12 +70,12 @@ import { SignUp } from '../actions/index';
                     password: values.password,
                     phone: countryCode + values.phone,
                     area:values.area,
-                    type:"manual",
+                    code:values.code,
                     countryCode:countryCode, 
                     country:country
 
                   }
-                  console.log(data)
+                  // console.log(data)
                   setLoading(true);
                   signUpApi(data).then(res=>{
                     if (res){
@@ -187,40 +187,13 @@ import { SignUp } from '../actions/index';
                   onChangeText={handleChange('phone')}
                   onBlur={handleBlur('phone')}
                   value={values.phone}
+                  maxLength={13}
                   style={errorPhone ? styles.formInputPhoneRed: styles.formInputPhone}
                 />
                 <View style={styles.formTel}>
                     <Text style={styles.item}>{countryCode}</Text>
                 </View>
-                {/* <TouchableOpacity style={showCountryCode ? styles.formTelShow: styles.formTel}>
-                  <FlatList
-                    data={[
-                      {code: countryCode , key: countryCode},
-                      {code: '+44', key:1},
-                      {code: '+234' , key:2},
-                      {code: '+256' , key:3},
-                      {code: '+1', key:5},
-                      {code: '+35' , key:4},
-                    ]}
-                    renderItem={({item}) =>
-                      <Text style={styles.item}
-                      key={item.key}
-                      onPress={()=>{
-                        if(showCountryCode){
-                          setShowCountryCode(false)
-                        }
-                        else{
-                          setShowCountryCode(true)
-                        }
-                        setCountryCode(item.code)
-                      }}
-                      >
-                        {item.code}
-                      </Text>
-                    }
-                  />
-                  <Ionicons name="chevron-down" size={15} color="#F7B686" onPress={()=>{setShowCountryCode(true); }}/>
-                </TouchableOpacity> */}
+                
                 <Text style={styles.formText}>Password</Text>
                 <TextInput
                   onChangeText={handleChange('password')}
@@ -237,7 +210,17 @@ import { SignUp } from '../actions/index';
                 <Ionicons name="eye-off-outline" size={20} color="#094850" style={styles.formEye} onPress={()=>{setShowPassword(true)}}/>
                 }
                 {errorPassword !=""&& <Text style={styles.redText}>{errorPassword}</Text>}
-                
+                <Text style={styles.formText}>Referal Code</Text>
+                <TextInput
+                  onChangeText={handleChange('code')}
+                  onBlur={handleBlur('code')}
+                  value={values.code}
+                  style={styles.formInput}
+                  placeholder="e.g. WTU0000"
+                  maxLength={7}
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                />
                 <SignUpButton onPress={handleSubmit} buttonText="Create an Account" />
                 <Text style={styles.createText} onPress={()=>navigation.navigate("SignIn")}>Already have account? Log in</Text>
               </View>
@@ -287,8 +270,8 @@ const styles = StyleSheet.create({
       fontSize:20,
       fontFamily:'Rubik',
       color:"#ffffff",
-      marginBottom:30,
-      marginTop:30,
+      marginBottom:10,
+      marginTop:0,
     },
     errorText:{
       padding:"5%",
@@ -307,7 +290,7 @@ const styles = StyleSheet.create({
       backgroundColor:"#fff",
       marginTop:7,
       fontFamily:'Rubik',
-      marginBottom:20,
+      marginBottom:10,
       paddingLeft:10,
       paddingRight:40,
 
@@ -396,7 +379,7 @@ const styles = StyleSheet.create({
 
     },
     formEye:{
-      marginTop:-55,
+      marginTop:-45,
       marginLeft:"90%",
       marginBottom:30,
     },

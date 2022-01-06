@@ -48,9 +48,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                     user_id: userId,
 
                   }
-                  console.log(data)
+                  // console.log(data)
                   activateAccountApi(data).then(res=>{
                     setLoading(true);
+                    // console.log(res)
                     if (res){
                       if (res.success ===true && res.status === 200){
                         setTimeout(() => {
@@ -81,7 +82,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                     value={values.code}
                     style={styles.formInput}
                     maxLength={4} 
-                    keyboardType="numeric"
+                    // keyboardType="numeric"
                     autoCapitalize='none'
                     autoCorrect={false}
                   />
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     containerWhite:{
-      height:"80%",
+      height:"90%",
       position:"absolute",
       bottom:0,
       backgroundColor:"#fff",

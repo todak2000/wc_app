@@ -12,10 +12,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
  function AddFriendScreen(props){
   
-  const {navigation, refCode} = props
+  const {navigation: { goBack }, refCode} = props
    const copyToClipboard = () => {
     Clipboard.setString(refCode);
-    console.log("clipboard: ", refCode)
+    // console.log("clipboard: ", refCode)
   };
   const message = `
     Hi! I would like to invite you to join me on WasteCoin (WC)- an  app that educates and rewards your recycling efforts. Register with my referral code - ${refCode} to earn your first 2WC. \n
@@ -33,14 +33,14 @@ import { FontAwesome5 } from '@expo/vector-icons';
     try {
       await Share.share(customOptions);
     } catch (err) {
-      console.log(err);
+      return err
     }
   };
     return (
 
         <View style={styles.container}>
           <TouchableOpacity 
-              onPress={()=>navigation.navigate("Bonus")}
+              onPress={()=>goBack()}
            >
             <Ionicons name="chevron-back" size={23} color="#4B4B4B" />
           </TouchableOpacity>

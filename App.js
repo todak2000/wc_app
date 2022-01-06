@@ -36,6 +36,9 @@ import CameraScreen from './components/CameraScreen';
 import BonusScreen from './components/BonusScreen';
 import AddFriendScreen from './components/AddFriendScreen';
 import DailyBonusScreen from './components/DailyBonusScreen';
+import Followers from './components/ProfileComponents/Followers';
+import ContactUs from './components/ProfileComponents/ContactUs';
+import Faq from './components/ProfileComponents/Faq';
 // import { bindActionCreators } from 'redux';
 
 
@@ -48,6 +51,7 @@ import { StatusBar } from 'expo-status-bar';
 import { registerRootComponent } from 'expo';
 import AppLoading from 'expo-app-loading';
 import useFonts from './hooks/useFonts';
+import Avatar from './components/ProfileComponents/Avatar';
 
 // const customFonts = {
 //     Rubik: require("./assets/fonts/Rubik.ttf"),
@@ -124,10 +128,10 @@ function Home() {
       
     })}
     >
+      <Tab.Screen name="Scanner" component={Scanner} />
       <Tab.Screen name="Marketplace" component={MarketPlace} />
       <Tab.Screen name="Wallet" component={Wallet} />
-      <Tab.Screen name="Scanner" component={Scanner} />
-      <Tab.Screen name="Notification" component={Notification} />
+      {/* <Tab.Screen name="Notification" component={Notification} /> */}
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
@@ -223,6 +227,26 @@ function Home() {
           component={DailyBonusScreen} 
           options={{ headerShown: false} }
         />
+        <Stack.Screen 
+          name="Followers" 
+          component={Followers} 
+          options={{ headerShown: false} }
+        />
+        <Stack.Screen 
+          name="Faq" 
+          component={Faq} 
+          options={{ headerShown: false} }
+        />
+        <Stack.Screen 
+          name="Contact" 
+          component={ContactUs} 
+          options={{ headerShown: false} }
+        />
+        <Stack.Screen 
+          name="Avatar" 
+          component={Avatar} 
+          options={{ headerShown: false} }
+        />
         
       </Stack.Navigator>
           
@@ -237,45 +261,5 @@ registerRootComponent(App);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // fontFamily: 'Rubik',
   },
 });
-
-// function mapStateToProps (state) {
-//   return {
-//     lastBonusDate: state.date
-//   }
-// }
-
-// function mapDispatchToProps (dispatch ) {
-//   return {
-//     RestartBonusStateApi: bindActionCreators(RestartBonusState, dispatch)
-//   }
-// }
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(App);
-
-
-// import { StatusBar } from 'expo-status-bar';
-// import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Open up App.js to start working on your app!</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });

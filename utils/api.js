@@ -20,7 +20,7 @@ export function fetchUser ( ){
         // }, 2000)
     })
     .catch(error => {
-        console.log(error);
+        return error
     });
   // return "no user"
   // return AsyncStorage.getItem(STORAGE_KEY)
@@ -40,13 +40,13 @@ export async function signupApi(data){
         if (response.data.success === true & response.data.status === 200){
           // AsyncStorage.setItem("userInfo", JSON.stringify(response.data));
           // const userData = AsyncStorage.getItem("userInfo")
-          console.log(userData)
+          // console.log(userData)
           // return response.data
           
           // history.push("/home");
         }
         else{
-          console.log(response.data)
+          // console.log(response.data)
           
           return response.data
 
@@ -59,7 +59,7 @@ export async function signupApi(data){
       // return response;
     })
     .catch(error => {
-        console.log(error);
+        return error
     });
     
 }

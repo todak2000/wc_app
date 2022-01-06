@@ -14,12 +14,13 @@ export const CLAIM_BONUS = 'CLAIM_BONUS';
 export const UPDATE_BONUS_STATE = 'UPDATE_BONUS_STATE';
 export const RESTART_BONUS_STATE = 'RESTART_BONUS_STATE';
 
-export function receiveUser (user_id, user_data, tx_data) {
+export function receiveUser (user_id, user_data, tx_data, fl_data) {
   return {
     type: USER_DATA,
     user_id,
     user_data,
-    tx_data
+    tx_data, 
+    fl_data
   }
 }
 
@@ -121,41 +122,58 @@ export function SignUp (data) {
     },
   };
   return async (dispatch) => {
-    const res = await axios.post(`${baseUrl}/v1/signup`, data, config)
-    if(res.data.status == 200){
-      try {
-        await AsyncStorage.setItem("token", res.data.user_id);
-        // dispatch(receiveUser(res.data.user_id))
-     } catch (err) {
-        console.error(err);
-     } 
+    try{
+      const res = await axios.post(`${baseUrl}/v1/signup`, data, config)
+      if(res.data.status == 200){
+        try {
+          await AsyncStorage.setItem("token", res.data.user_id);
+      } catch (err) {
+        return err
+      } 
+      }
     }
-    // const res = await axios.post(`${baseUrl}/api/v1/user/register`, data, config)
-    // if(res.data.status === 200){
-    //   dispatch(receiveUser(data, res.data._id))
-    // }
-    return res.data;
+    catch (err) {
+      return "Sorry! an error Occured."
+    }
   }
 }
 export function SignIn (data) {
   
   return async (dispatch) => {
-    // console.log(data)
-    const res = await axios.post(`${baseUrl}/v1/signin`, data)
-    console.log(res.data)
-    if(res.data.status == 200){
-      try {
-        await AsyncStorage.setItem("token", res.data.user_id);
-        dispatch(receiveUser(res.data.user_id, res.data.user_data, res.data.tx_data))
-     } catch (err) {
-        console.error(err);
-     } 
+    try {
+      const res = await axios.post(`${baseUrl}/v1/signin`, data)
+      if(res.data.status == 200){
+        try {
+          await AsyncStorage.setItem("token", res.data.user_id);
+          dispatch(receiveUser(res.data.user_id, res.data.user_data, res.data.tx_data, res.data.fl_data))
+          return res.data;
+       } catch (err) {
+        return err
+       } 
+      }
     }
-    return res.data;
-    
+   catch (err) {
+    return "Sorry! an error Occured."
+ }   
   }
 }
-
+export function sendMessage (data){
+  return async (dispatch) => {
+    try {
+      const res = await axios.post(`${baseUrl}/v1/sendMessage`, data)
+      if(res.data.status == 200){
+        try {
+          return res.data;
+       } catch (err) {
+        return err
+       } 
+      }
+    }
+   catch (err) {
+    return "Sorry! an error Occured."
+ }   
+  }
+}
 
 export function activateAccount (data) {
   
@@ -165,12 +183,25 @@ export function activateAccount (data) {
     },
   };
   return async (dispatch) => {
-    try {
+    try{
       const res = await axios.post(`${baseUrl}/v1/verify`, data, config)
-      return res.data;
-    } catch (err) {
-      console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+      if(res.data.status == 200){
+        try {
+          return res.data;
+      } catch (err) {
+        return err
+      } 
+      }
     }
+    catch (err) {
+      return "Sorry! an error Occured."
+    }
+    // try {
+    //   const res = await axios.post(`${baseUrl}/v1/verify`, data, config)
+    //   return res.data;
+    // } catch (err) {
+    //   console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+    // }
   }
 }
 
@@ -183,16 +214,35 @@ export function Snap (data) {
     },
   };
   return async (dispatch) => {
-    try {
+    // console.log(data)
+    try{
       const res = await axios.post(`${baseUrl}/v1/aws`, data, config)
       if(res.data.status == 200 & res.data.success ===true){
-        dispatch(addToken(parseFloat(0.10)))
-        dispatch(addTx(res.data.tx_data))
+        try {
+          dispatch(addToken(parseFloat(0.10)))
+          dispatch(addTx(res.data.tx_data))
+            return res.data;
+        } catch (err) {
+          return err
+        } 
       }
-      return res.data;
-    } catch (err) {
-      console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+      else{
+        return res.data;
+      }
     }
+    catch (err) {
+      return "Sorry! an error Occured."
+    }
+    // try {
+    //   const res = await axios.post(`${baseUrl}/v1/aws`, data, config)
+    //   if(res.data.status == 200 & res.data.success ===true){
+    //     dispatch(addToken(parseFloat(0.10)))
+    //     dispatch(addTx(res.data.tx_data))
+    //   }
+    //   return res.data;
+    // } catch (err) {
+    //   console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+    // }
   }
 }
 
@@ -206,16 +256,34 @@ export function ClaimBonus (data) {
     },
   };
   return async (dispatch) => {
-    try {
+    try{
       const res = await axios.post(`${baseUrl}/v1/bonus`, data, config)
       if(res.data.status == 200 & res.data.success ===true){
-        dispatch(claimBonus(parseFloat(data.coin)))
-        dispatch(addTx(res.data.tx_data))
+        try {
+          dispatch(claimBonus(parseFloat(data.coin)))
+          dispatch(addTx(res.data.tx_data))
+            return res.data;
+        } catch (err) {
+          return err
+        } 
       }
-      return res.data;
-    } catch (err) {
-      console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+      else{
+        return res.data;
+      }
     }
+    catch (err) {
+      return "Sorry! an error Occured."
+    }
+    // try {
+    //   const res = await axios.post(`${baseUrl}/v1/bonus`, data, config)
+    //   if(res.data.status == 200 & res.data.success ===true){
+    //     dispatch(claimBonus(parseFloat(data.coin)))
+    //     dispatch(addTx(res.data.tx_data))
+    //   }
+    //   return res.data;
+    // } catch (err) {
+    //   console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+    // }
   }
 }
 

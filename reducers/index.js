@@ -7,10 +7,12 @@ const store = {
     email: "",
     country: "",
     tokenBalance:0,
-    phone: ""
+    phone: "",
+    recycleCount:0,
   },
   tx_data:{},
-  following:0,
+  fl_data:{},
+  // following:0,
   followers:0,
   refCode:"WC0000",
   bonusOne:{
@@ -50,17 +52,21 @@ function reducer (state = store, action) {
           email: action.user_data.email,
           country: action.user_data.country,
           tokenBalance:action.user_data.tokenBalance,
-          phone: action.user_data.phone
+          phone: action.user_data.phone,
+          recycleCount:action.user_data.recycleCount
         }, 
         tx_data:action.tx_data,
-        refCode:action.user_id
+        fl_data:action.fl_data,
+        refCode:action.user_id,
+        followers:action.user_data.followersCount
       };
     case ADD_TOKEN :
       return {
         ...state,
         user: {
           ...state.user,
-          tokenBalance : state.user.tokenBalance+action.amount
+          tokenBalance : state.user.tokenBalance+action.amount,
+          recycleCount:state.user.recycleCount+ 1,
         },
         dailyRecyclingCount: state.dailyRecyclingCount+1
       };

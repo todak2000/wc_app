@@ -30,7 +30,7 @@ import { ClaimBonus, UpdateBonusState } from '../../actions/index';
       user_id:user.user_id
 
     }
-    console.log(bonusName)
+    // console.log(bonusName)
     // setOtherScreen(false)
     updateBonusStateApi(bonusName)
     bonusApi(data).then(res=>{

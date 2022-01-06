@@ -23,11 +23,11 @@ import {Ionicons} from '@expo/vector-icons'
 export default ForgotTopComponent
 const styles = StyleSheet.create({
     container: {
-      marginTop:"15%",
+      marginTop:"5%",
       flexDirection:"row",
       width:"90%",
-      paddingTop:40,
-      paddingBottom:40,
+      paddingTop:20,
+      paddingBottom:10,
       justifyContent:"flex-start",
     },
     text:{

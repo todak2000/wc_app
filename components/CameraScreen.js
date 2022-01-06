@@ -40,6 +40,7 @@ import Button from './AuthComponents/Button';
       formData.append('user_id', props.user.user_id)
       
       snapApi(formData).then(res=>{
+        console.log(res)
         if (res){
           if (res.success === true && res.status === 200){
             setLoading(false);
@@ -49,7 +50,12 @@ import Button from './AuthComponents/Button';
           }
           else{
             setLoading(false);
-            setMesg(res.message)
+            if (res.message){
+              setMesg(res.message)
+            }
+            else{
+              setMesg("Sorry! an error Occured.")
+            }
             setFail(true)
           }
         }
