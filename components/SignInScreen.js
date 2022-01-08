@@ -9,6 +9,7 @@ import { SignIn } from '../actions/index';
 import { Formik } from 'formik';
 import {Ionicons} from '@expo/vector-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
  function SignInScreen(props){
@@ -39,7 +40,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
   }, []);
     return (
 
-        <View style={styles.container}>
+        <KeyboardAwareScrollView style={styles.container}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={styles.container}
+          scrollEnabled={false}
+        >
           <LoginTop headerText="Welcome back" subHeader= "We always love to have you here"/>
           {message !=""&& message !="null" && <Text style={styles.errorText}>{message}</Text>}
           <Spinner visible={loading}/>
@@ -115,7 +120,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
               </View>
             )}
           </Formik>
-        </View>
+        </KeyboardAwareScrollView>
         
     )
 }
@@ -147,6 +152,7 @@ const styles = StyleSheet.create({
       paddingBottom:40,
       paddingLeft:20,
       paddingRight:20,
+      
       // backgroundColor:"#4F9A51",
     },
     formInput:{

@@ -18,15 +18,15 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.wastecoin.delta",
-      "buildNumber": "1.0.0"
+      "bundleIdentifier": "co.wastecoin.www",
+      "buildNumber": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-iconTwo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.wastecoin.delta",
+      "package": "co.wastecoin.www",
       "versionCode": 1
     },
     "web": {

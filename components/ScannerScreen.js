@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
       marginLeft:10,
       fontFamily:"Rubik",
       fontSize:15,
-      fontWeight:"bold",
+      // fontWeight:"bold",
     },
     flexyLower:{
       flexDirection:"row",
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
       color:"#146209",
       fontFamily:"Rubik",
       fontSize:15,
-      fontWeight:"bold",
+      // fontWeight:"bold",
     },
     flexyText2:{
       padding:"2%",

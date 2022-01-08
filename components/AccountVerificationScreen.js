@@ -75,7 +75,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                 <View style={styles.formContainer}>
                   {message !=="" && <Text style={styles.result}> {message}</Text>}
                   <ForgotImage />
-                  <Text style={styles.formText}>Enter Verification Code</Text>
+                  <Text style={styles.formText}>Enter Verification Code sent to your email</Text>
                   <TextInput
                     onChangeText={handleChange('code')}
                     onBlur={handleBlur('code')}
@@ -87,7 +87,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                     autoCorrect={false}
                   />
                   <TouchableOpacity>
-                  <Text style={styles.formText2}>Resent ActivationCode</Text>
+                  {/* <Text style={styles.formText2}>Resent ActivationCode</Text> */}
                   </TouchableOpacity>
                   <Button onPress={handleSubmit} buttonText="Activate Account" />
                 </View>

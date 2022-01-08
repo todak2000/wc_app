@@ -7,11 +7,11 @@ import Youtubetrans from '../SVGComponents/Youtubetrans'
 
 
 const TransCard = (props) => {
-    const{ imageUri,textDate, textWord, textCoin, key, tx_type}= props
+    const{ imageUri,textDate, textWord, textCoin, index, tx_type}= props
 
 
     return (
-        <View style={styles.container} key={textCoin} >
+        <View style={styles.container} >
             <View style={styles.leftPart}>
             {textWord.includes("discount")? <DiscountTrans/> : textWord.includes("youtube")? <Youtubetrans/> : <MoneyStar/> } 
 
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         color:"#000000",
         fontSize: 13,
         fontFamily:"Rubik",
-        fontWeight: "bold",
+        // fontWeight: "bold",
         marginLeft:10,
         width: "90%",
       },
@@ -83,14 +83,14 @@ const styles = StyleSheet.create({
         fontFamily:'Rubik',
         color: "#FF4900",
         fontSize:14,
-        fontWeight: "bold",
+        // fontWeight: "bold",
     },
 
     textCoinGreen:{
       fontFamily:'Rubik',
       color: "#146209",
       fontSize:14,
-      fontWeight: "bold",
+      // fontWeight: "bold",
   },
     // textDate:{
     //     fontFamily:'Rubik',

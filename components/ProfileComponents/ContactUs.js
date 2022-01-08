@@ -7,7 +7,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { Formik } from 'formik';
 import ButtonWhite from '../AuthComponents/ButtonWhite3';
 import { sendMessage } from '../../actions/index';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
  function ContactUs(props){
   const [loading, setLoading] = useState(false);
   const [message, setMessage]= useState("");
@@ -17,7 +17,11 @@ import { sendMessage } from '../../actions/index';
 
   // console.log(user)
     return (
-        <View style={styles.container}>
+        <KeyboardAwareScrollView style={styles.container}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={styles.container}
+          scrollEnabled={false}
+        >
           <TouchableOpacity 
               onPress={()=>goBack()}
            >
@@ -98,7 +102,7 @@ import { sendMessage } from '../../actions/index';
             <Text style={styles.titleText2}>or mail us at</Text>
             <Text style={styles.titleText2}>info@wastecoin.co</Text>
             </View>
-        </View>
+        </KeyboardAwareScrollView>
         
     )
 }

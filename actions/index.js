@@ -125,12 +125,9 @@ export function SignUp (data) {
     try{
       const res = await axios.post(`${baseUrl}/v1/signup`, data, config)
       if(res.data.status == 200){
-        try {
           await AsyncStorage.setItem("token", res.data.user_id);
-      } catch (err) {
-        return err
-      } 
       }
+      return res.data;
     }
     catch (err) {
       return "Sorry! an error Occured."
@@ -142,15 +139,12 @@ export function SignIn (data) {
   return async (dispatch) => {
     try {
       const res = await axios.post(`${baseUrl}/v1/signin`, data)
+      // console.log(res)
       if(res.data.status == 200){
-        try {
           await AsyncStorage.setItem("token", res.data.user_id);
           dispatch(receiveUser(res.data.user_id, res.data.user_data, res.data.tx_data, res.data.fl_data))
-          return res.data;
-       } catch (err) {
-        return err
-       } 
       }
+      return res.data;
     }
    catch (err) {
     return "Sorry! an error Occured."
@@ -161,13 +155,7 @@ export function sendMessage (data){
   return async (dispatch) => {
     try {
       const res = await axios.post(`${baseUrl}/v1/sendMessage`, data)
-      if(res.data.status == 200){
-        try {
-          return res.data;
-       } catch (err) {
-        return err
-       } 
-      }
+      return res.data;
     }
    catch (err) {
     return "Sorry! an error Occured."
@@ -185,13 +173,7 @@ export function activateAccount (data) {
   return async (dispatch) => {
     try{
       const res = await axios.post(`${baseUrl}/v1/verify`, data, config)
-      if(res.data.status == 200){
-        try {
-          return res.data;
-      } catch (err) {
-        return err
-      } 
-      }
+      return res.data;
     }
     catch (err) {
       return "Sorry! an error Occured."

@@ -13,7 +13,7 @@ import img from "../assets/walletBackimage.png";
 
  function WalletScreen(props){
   const {navigation, tx_data, user} = props
-
+console.log(tx_data)
     return (
         <View style={styles.container}>
              {/* <Card textOne="Wallet Balance" textTwo="WC" balance={parseFloat(props.user.tokenBalance).toFixed(2)}/> */}
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
       flex: 1,
       padding:"7%",
       paddingTop:"15%",
+      width:"100%",
       // backgroundColor:"#F9FFF9",
     },
     flexBtw:{
@@ -80,6 +81,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
       // backgroundColor: 'pink',
+      width:"100%",
       marginHorizontal: 2,
       height: 60,
       flex: 1,

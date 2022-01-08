@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Text,StyleSheet, View, TextInput, FlatList, TouchableOpacity} from 'react-native'
+import { Text,StyleSheet, View, TextInput, FlatList, TouchableOpacity, ScrollView} from 'react-native'
 import { Formik } from 'formik';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SignUpButton from './AuthComponents/ButtonWhite'
@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { SignUp } from '../actions/index';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
  function SignUpScreen(props){
   const {navigation, signUpApi} = props;
@@ -40,8 +41,14 @@ import { SignUp } from '../actions/index';
   }
     return (
 
-        <View style={styles.container}>
+        <KeyboardAwareScrollView style={styles.container}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={styles.container}
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+          scrollEnabled={false}
+        >
           <Spinner visible={loading}/>
+          <ScrollView style={styles.cont} showsVerticalScrollIndicator={false} >
             <Text style={styles.HeaderText}>Create an Account</Text>
             <Formik
             initialValues={{ username: '', email:'', password:'', phone:'', area:'', code:'' }}
@@ -130,8 +137,8 @@ import { SignUp } from '../actions/index';
                   autoCorrect={false}
                 />
                 <View style={styles.flexRow2}>
-                <Text style={styles.formText}>Country</Text>
-                <Text style={styles.formText}>Area/Region/State</Text>
+                  <Text style={styles.formText}>Country</Text>
+                  <Text style={styles.formText}>Area/Region/State</Text>
                 </View>
                 <View style={styles.flexRow}>
                 <TextInput
@@ -156,7 +163,7 @@ import { SignUp } from '../actions/index';
                   <FlatList
                     data={[
                       {country: country , key: country},
-                      {country: 'United Kingdom', key:1},
+                      {country: 'U.K', key:1},
                       {country: 'Saudi Arabia' , key:2},
                       {country: 'Nigeria' , key:3},
                       {country: 'Other', key:5},
@@ -226,7 +233,8 @@ import { SignUp } from '../actions/index';
               </View>
             )}
           </Formik> 
-        </View>
+          </ScrollView>
+        </KeyboardAwareScrollView>
         
     )
 }
@@ -252,7 +260,10 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor:"#4F9A51",
       padding:"7%",
-      paddingTop:"10%",
+      paddingTop:"7%",
+    },
+    cont:{
+      flex: 1,
     },
     spinnerTextStyle: {
       color: '#FFF',
@@ -387,10 +398,11 @@ const styles = StyleSheet.create({
       backgroundColor:"#4F9A51",
       marginTop:-60,
       marginBottom:30,
-      width:"15%",
+      width:"20%",
       padding:7,
       borderRadius:5,
       marginLeft:5,
+      marginRight:10,
       height:34,
       flexDirection:"row"
     },

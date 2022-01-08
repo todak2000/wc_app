@@ -14,7 +14,7 @@ const ConverHistory = (props) => {
 export default ConverHistory
 const styles = StyleSheet.create({
     container: {
-      width:"100%%",
+      width:"100%",
       backgroundColor:"#4F9A51",
       borderRadius: 3,
       shadowRadius: 1,

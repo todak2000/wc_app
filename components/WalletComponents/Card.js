@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         color:"#fff",
         fontSize: 60,
         fontFamily:'Rubik',
-        fontWeight:"bold"
+        // fontWeight:"bold"
       },
 
       childContainer:{
