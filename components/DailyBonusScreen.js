@@ -104,7 +104,7 @@ import { RestartBonusState } from '../actions/index';
                   }
                 </View>
               </View>
-              <BonusMiddle navigation={()=>navigation.navigate("AddFriend")} textOne="Get your friends to join and receive WC10 for each successful invite"/>
+              <BonusMiddle navigation={()=>navigation.navigate("AddFriend")} textOne="Get your friends to join and receive WC0.1 for each successful invite"/>
             </View>
           }
         </View>

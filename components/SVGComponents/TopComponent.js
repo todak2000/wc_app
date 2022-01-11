@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
       flexDirection:"row",
       justifyContent:"flex-end",
       alignItems:"center",
+      // backgroundColor:"#f0f"
     },
     text:{
-      textAlign:"right",
       color:"#4F9A51",
       fontSize: 16,
+      // paddingRight:20,
       fontFamily:'Rubik',
       // fontWeight:"bold",
     }

@@ -35,7 +35,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
     return (
 
         <View style={styles.container}>
-          <Top navigation={navigation} textHeader="Accout Verification"/>
+          <Top navigation={navigation} textHeader="Account Verification"/>
           <View style={styles.containerWhite}>
           <Spinner visible={loading}/>
             <Formik

@@ -26,7 +26,7 @@ console.log(tx_data)
              </View>
               <ConverHistory text="Transaction History"/>
               {/* <TransHead/> */}
-              <ScrollView style={styles.scrollView}>
+              <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
               {tx_data.length >0 ?
               tx_data.map((element) => {
                 return (

@@ -1,18 +1,16 @@
 import React from 'react'
 import { Text,StyleSheet, View, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
+import Construction from './SVGComponents/Construction'
+
  function MarketPlaceScreen(props){
   //  console.log(props)
   const {navigation} = props
     return (
 
         <View style={styles.container}>
-             <TouchableOpacity 
-              style={styles.container}
-              onPress={()=>navigation.navigate("SignIn")}
-           >
-            <Text> Market Place - Back {props.user_id}</Text>
-          </TouchableOpacity>
+             <Construction />
+             <Text style={styles.texty}>Marketplace still in construction</Text>
         </View>
         
     )
@@ -40,5 +38,9 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+
     },
+    texty:{
+      fontFamily:'Rubik300'
+    }
   });

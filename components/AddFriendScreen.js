@@ -18,13 +18,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
     // console.log("clipboard: ", refCode)
   };
   const message = `
-    Hi! I would like to invite you to join me on WasteCoin (WC)- an  app that educates and rewards your recycling efforts. Register with my referral code - ${refCode} to earn your first 2WC. \n
-    Why should you join WasteCoin? \n
-    WasteCoin aligns majorly with SDG goal 11 - Sustainable Cities and Communities, SDG goal 12 - Responsible Consumption and Production, and SDG goal 13 - Climate Action. WasteCoin is designed to motivate you to typically want to recycle as there is an added value to doing that. Thus, recycling rates will therefore be improved geometrically which will definitely reduce land, water pollution, incineration of waste, thus helping the UK to contribute immensely to mitigating global warming and preserving our water bodies from an environmental point of view. \n
-    While we intend to achieve our mission which is to create zero-waste cities in the nearest future. We however understand that it can’t be done overnight. Hence, We are initiating the first phase which is to create a community of Potential recyclers. \n
-    Thus as an active member of WasteCoin, you earn for just scanning recyclables, doing daily task/bonuses, and via referral. \n
-    To know more about WasteCoin. Visit: https://wastecoin.co \n
-    To download our app: Link to be given soon
+    Hi! I would like to invite you to join me on WasteCoin (WC)- an  app that educates and rewards your recycling efforts. Register with my referral code - ${refCode}.\n What is WasteCoin and why should you join \nAt WasteCoin, we strongly believe that if the social culture around waste disposal is changed for good, recycling will drastically improve. Thus, our long-term goal is to drive a global recycling renaissance which would, in turn, have a positive impact on environmental sustainability. However we are quite aware, it is a long shot and would require we start small. Thus, we are initiating the first milestone which is to create a community of One million active recyclers as well as scan no less than 5000 tons of recyclables by the end of 2024. \n And we are counting on you to help us get there. Thus as an active recycler on WasteCoin, you earn for just scanning recyclables (PET bottles and Cans), doing daily task/bonuses, and via referral. \n To know more about WasteCoin. Visit: https://wastecoin.co \n To download our app: Link to be given soon
   `
   const options = {
     message

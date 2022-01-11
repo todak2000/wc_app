@@ -32,7 +32,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
     else if(country === "Nigeria"){
       setCountryCode('+234')
     }
-    else if(country === "United Kingdom"){
+    else if(country === "U.K"){
       setCountryCode('+44')
     }
     else if(country === "Other"){
@@ -82,7 +82,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
                     country:country
 
                   }
-                  // console.log(data)
+                  console.log(data)
                   setLoading(true);
                   signUpApi(data).then(res=>{
                     if (res){
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor:"#4F9A51",
-      padding:"7%",
+      padding:"3%",
       paddingTop:"7%",
     },
     cont:{
@@ -304,6 +304,7 @@ const styles = StyleSheet.create({
       marginBottom:10,
       paddingLeft:10,
       paddingRight:40,
+      color: '#4B4B4B',
 
     },
     formInputPassword:{
@@ -317,6 +318,7 @@ const styles = StyleSheet.create({
       marginBottom:70,
       paddingLeft:10,
       paddingRight:40,
+      color: '#4B4B4B',
 
     },
     formInputRed:{
@@ -345,6 +347,7 @@ const styles = StyleSheet.create({
       marginBottom:20,
       paddingLeft:10,
       paddingRight:40,
+      color: '#4B4B4B',
 
     },
     formCountryRed:{
@@ -385,8 +388,9 @@ const styles = StyleSheet.create({
       marginTop:7,
       fontFamily:'Rubik',
       marginBottom:20,
-      paddingLeft:60,
+      paddingLeft:80,
       paddingRight:40,
+      color: '#4B4B4B',
 
     },
     formEye:{
