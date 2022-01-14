@@ -9,6 +9,7 @@ const store = {
     tokenBalance:0,
     phone: "",
     recycleCount:0,
+    dailyBonus:false
   },
   tx_data:{},
   fl_data:{},
@@ -37,8 +38,8 @@ const store = {
   },
   bonusDone:false,
   date:new Date(),
-  dailyRecyclingCount:0
-
+  dailyRecyclingCount:0,
+  
 };
 
 function reducer (state = store, action) {
@@ -53,12 +54,28 @@ function reducer (state = store, action) {
           country: action.user_data.country,
           tokenBalance:action.user_data.tokenBalance,
           phone: action.user_data.phone,
-          recycleCount:action.user_data.recycleCount
+          recycleCount:action.user_data.recycleCount,
         }, 
         tx_data:action.tx_data,
         fl_data:action.fl_data,
         refCode:action.user_id,
-        followers:action.user_data.followersCount
+        followers:action.user_data.followersCount,
+        bonusOne : {
+          ...state.bonusOne,
+          done: action.user_data.dailyBonusOneDone,
+          bonus: action.user_data.bonusOne,
+          coin: action.user_data.bonusOneCoin,
+        },
+        bonusTwo : {
+          ...state.bonusTwo,
+          done: action.user_data.dailyBonusTwoDone,
+          url: action.user_data.bonusTwo,
+          coin: action.user_data.bonusTwoCoin,
+        },
+        bonusThree : {
+          ...state.bonusThree,
+          done: action.user_data.dailyBonusThreeDone,
+        },
       };
     case ADD_TOKEN :
       return {

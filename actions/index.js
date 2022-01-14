@@ -187,6 +187,38 @@ export function activateAccount (data) {
   }
 }
 
+export function getDollar(){
+  var options = {
+    method: 'GET',
+    url: 'https://fixer-fixer-currency-v1.p.rapidapi.com/latest',
+    params: {base: 'USD', symbols: 'GBP,JPY,EUR'},
+    headers: {
+      'x-rapidapi-host': 'fixer-fixer-currency-v1.p.rapidapi.com',
+      'x-rapidapi-key': 'a6e7f8cabamsh1ea4ecab6649a58p1c0a96jsn631ceaa8bac4'
+    }
+  };
+  return async (dispatch) => {
+    // console.log(data)
+    try{
+      axios.request(options)
+      const res = await axios.request(options)
+      if(res.data.success ===true){
+        try {
+            return res.data;
+        } catch (err) {
+          return err
+        } 
+      }
+      else{
+        return res.data;
+      }
+    }
+    catch (err) {
+      return "Sorry! an error Occured."
+    }
+  }
+}
+
 export function Snap (data) {
 
   const config = {
@@ -215,16 +247,6 @@ export function Snap (data) {
     catch (err) {
       return "Sorry! an error Occured."
     }
-    // try {
-    //   const res = await axios.post(`${baseUrl}/v1/aws`, data, config)
-    //   if(res.data.status == 200 & res.data.success ===true){
-    //     dispatch(addToken(parseFloat(0.10)))
-    //     dispatch(addTx(res.data.tx_data))
-    //   }
-    //   return res.data;
-    // } catch (err) {
-    //   console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
-    // }
   }
 }
 

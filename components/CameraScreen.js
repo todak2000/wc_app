@@ -113,7 +113,7 @@ import Button from './AuthComponents/Button';
                   <Text style={{color:"#FF4900", textAlign:"center", marginTop:30, fontFamily:"Rubik"}}>{mesg}</Text>
                 </View>
               }
-              {loading && <Text style={styles.progress}>Scanning in Progress...</Text>}
+              {loading && <Text style={styles.progress}>Identifying the item...</Text>}
               {fail && <Button buttonText="Scan Again" onPress={()=>{setFail(false); setPhotos(null)}}/>}
               {suceed && <Button buttonText="Check Wallet" onPress={()=>{navigation.navigate("Wallet")}}/>}
               

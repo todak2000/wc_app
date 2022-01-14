@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
       justifyContent:"center",
     },
     innerContainer:{
-      // height:"30%",
       width:"100%",
       marginBottom:30,
       flexDirection:'column',

@@ -18,7 +18,7 @@ console.log(tx_data)
         <View style={styles.container}>
              {/* <Card textOne="Wallet Balance" textTwo="WC" balance={parseFloat(props.user.tokenBalance).toFixed(2)}/> */}
           <ImageBackground source={img} resizeMode="cover" style={styles.image}>
-             <Card textOne="Your WasteCoin" textTwo="WC" balance={parseFloat(props.user.tokenBalance).toFixed(2)} recycleCount={user.recycleCount}/>
+             <Card textOne="Your WasteCoin" textTwo="WC" balance={parseFloat(props.user.tokenBalance).toFixed(2)} recycleCount={user.recycleCount} country={props.user.country}/>
           </ImageBackground>   
              <View style={styles.flexBtw}>
               <Greencard textOne="Spend" textTwo="Go to Shop and make orders" onPress={()=>{navigation.navigate("Marketplace")}}/>
