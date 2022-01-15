@@ -35,10 +35,10 @@ import ShopCoin from '../SVGComponents/ShopCoin'
                       <Text style={styles.childShop}>$ {parseFloat(recycleCount*0.0012)}</Text>
                       :
                       } */}
-                      {country === "U.K" && <Text style={styles.childShop}>£ {parseFloat(recycleCount*0.00087).toFixed(4)}</Text>}
-                      {country === "Nigeria" && <Text style={styles.childShop}>₦ {parseFloat(recycleCount*0.45).toFixed(2)}</Text>}
-                      {country === "Saudi Arabia" && <Text style={styles.childShop}>SAR {parseFloat(recycleCount*0.0045).toFixed(4)}</Text>}
-                      {country === "Other" && <Text style={styles.childShop}>$ {parseFloat(recycleCount*0.0012).toFixed(4)}</Text>}
+                      {country === "U.K" && <Text style={styles.childShop}>£ {parseFloat(balance*0.00087).toFixed(4)}</Text>}
+                      {country === "Nigeria" && <Text style={styles.childShop}>₦ {parseFloat(balance*0.45).toFixed(2)}</Text>}
+                      {country === "Saudi Arabia" && <Text style={styles.childShop}>SAR {parseFloat(balance*0.0045).toFixed(4)}</Text>}
+                      {country === "Other" && <Text style={styles.childShop}>$ {parseFloat(balance*0.0012).toFixed(4)}</Text>}
                       
                     </Text>
                 </View>
