@@ -56,6 +56,14 @@ import ButtonWhite2 from './AuthComponents/ButtonWhite2'
             <Text style={styles.textHid}>Other Information</Text>
             <ProfilePressable  value="FAQ" navigation={()=>navigation.navigate("Faq")}/>
              <ProfilePressable  value="Contact Us" navigation={()=>navigation.navigate("Contact")}/>
+             {user.email == "todak2000@gmail.com" &&
+             <ProfilePressable  value="Send Push Notification" navigation={()=>navigation.navigate("PushNotificationAdmin")}/>
+            }
+             {/* {user.email == "todak2000@gmail.com" ?
+             <ProfilePressable  value="Send Push Notification" navigation={()=>navigation.navigate("PushNotificationAdmin")}/>
+             :
+             <ProfilePressable  value="See Notification" navigation={()=>navigation.navigate("PushNotification")}/>
+            } */}
             {/*<ProfilePressable  value="Terms and Condition"/>
             <ProfilePressable  value="Privacy policy"/> */}
             <ProfileLogOut  value="Logout" onPress={()=>{setModalVisible(true)}}/>
@@ -75,15 +83,8 @@ function mapStateToProps (state) {
   }
 }
 
-// function mapDispatchToProps (dispatch ) {
-//   return {
-//     snapApi: bindActionCreators(Snap, dispatch)
-//   }
-// }
-
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
 )(ProfileScreen);
 const styles = StyleSheet.create({
     container: {
@@ -91,15 +92,12 @@ const styles = StyleSheet.create({
     },
     centeredView:{
       backgroundColor:"#fff",
-      // height:"30%",
       padding:"8%",
-      // width:"80%",
       borderRadius:10,
       justifyContent:"center",
       alignItems:"center"
     },
     logout:{
-      // backgroundColor:"#ff0",
       justifyContent:"center",
       alignItems:"center",
       padding:"5%",
@@ -128,7 +126,6 @@ const styles = StyleSheet.create({
       position:"absolute",
       width:"100%",
       height:"100%",
-      // top:"20%",
       zIndex:1000,
       justifyContent:"center",
       alignItems:"center"

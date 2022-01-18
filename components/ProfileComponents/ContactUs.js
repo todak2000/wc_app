@@ -99,8 +99,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
           </Formik>
             
             <View style={styles.mailDiv}>
-            <Text style={styles.titleText2}>or mail us at</Text>
-            <Text style={styles.titleText2}>info@wastecoin.co</Text>
+              <Text style={styles.titleText2}>or mail us at</Text>
+              <Text style={styles.titleText2}>info@wastecoin.co</Text>
             </View>
         </KeyboardAwareScrollView>
         

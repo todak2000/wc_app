@@ -40,8 +40,8 @@ import Followers from './components/ProfileComponents/Followers';
 import ContactUs from './components/ProfileComponents/ContactUs';
 import Faq from './components/ProfileComponents/Faq';
 // import { bindActionCreators } from 'redux';
-
-
+import PushNotificationScreen from './components/PushNotificationScreen'
+import PushNotificationAdmin from './components/PushNotificationAdmin'
 import ForgotPasswordScreen from './components/ForgotPasswordScreen';
 
 
@@ -245,6 +245,16 @@ function Home() {
         <Stack.Screen 
           name="Avatar" 
           component={Avatar} 
+          options={{ headerShown: false} }
+        />
+        <Stack.Screen 
+          name="PushNotification" 
+          component={PushNotificationScreen} 
+          options={{ headerShown: false} }
+        />
+        <Stack.Screen 
+          name="PushNotificationAdmin" 
+          component={PushNotificationAdmin} 
           options={{ headerShown: false} }
         />
         
