@@ -147,7 +147,7 @@ export function SignIn (data) {
       return res.data;
     }
    catch (err) {
-    return "Sorry! an error Occured."
+    return err
  }   
   }
 }
@@ -158,7 +158,7 @@ export function sendMessage (data){
       return res.data;
     }
    catch (err) {
-    return "Sorry! an error Occured."
+    return err
  }   
   }
 }
@@ -223,17 +223,17 @@ export function Snap (data) {
 
   const config = {
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
       // 'Authorization': `Bearer ${getToken()}`
     },
   };
   return async (dispatch) => {
-    // console.log(data)
+    console.log(data)
     try{
-      const res = await axios.post(`${baseUrl}/v1/aws`, data, config)
+      const res = await axios.post(`${baseUrl}/v1/coin_payment`, data, config)
       if(res.data.status == 200 & res.data.success ===true){
         try {
-          dispatch(addToken(parseFloat(0.10)))
+          dispatch(addToken(parseFloat(0.50)))
           dispatch(addTx(res.data.tx_data))
             return res.data;
         } catch (err) {
@@ -245,10 +245,42 @@ export function Snap (data) {
       }
     }
     catch (err) {
-      return "Sorry! an error Occured."
+      return err
     }
   }
 }
+
+
+// export function Snap (data) {
+
+//   const config = {
+//     headers: {
+//       "Content-Type": "multipart/form-data",
+//       // 'Authorization': `Bearer ${getToken()}`
+//     },
+//   };
+//   return async (dispatch) => {
+//     // console.log(data)
+//     try{
+//       const res = await axios.post(`${baseUrl}/v1/aws`, data, config)
+//       if(res.data.status == 200 & res.data.success ===true){
+//         try {
+//           dispatch(addToken(parseFloat(0.10)))
+//           dispatch(addTx(res.data.tx_data))
+//             return res.data;
+//         } catch (err) {
+//           return err
+//         } 
+//       }
+//       else{
+//         return res.data;
+//       }
+//     }
+//     catch (err) {
+//       return "Sorry! an error Occured."
+//     }
+//   }
+// }
 
 
 export function ClaimBonus (data) {
@@ -300,5 +332,33 @@ export function UpdateBonusState (bonusName) {
 export function RestartBonusState () {
   return async (dispatch) => {
     dispatch(restartBonusState())
+  }
+}
+
+export function getImageUrl (data) {
+  
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      // 'Authorization': `Bearer ${getToken()}`
+    },
+  };
+  return async (dispatch) => {
+    try{
+      const res = await axios.post(`${baseUrl}/v1/imgUrl`, data, config)
+      if(res.data.status == 200 & res.data.success ===true){
+        try {
+            return res.data;
+        } catch (err) {
+          return err
+        } 
+      }
+      else{
+        return res.data;
+      }
+    }
+    catch (err) {
+      return err
+    }
   }
 }
