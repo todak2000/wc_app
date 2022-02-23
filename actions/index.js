@@ -2,10 +2,9 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const baseUrl = "http://127.0.0.1:8000";
+// const baseUrl = "http://127.0.0.1:/8000";
 const baseUrl = "https://wc-delta-api.herokuapp.com"
-// const baseUrl = "https://wastecoin-marketplace.herokuapp.com"
-// export const STORAGE_KEY = 'wastecoin_delta';
+
 
 export const USER_DATA = 'USER_DATA';
 export const ADD_TOKEN = 'ADD_TOKEN';
@@ -130,7 +129,8 @@ export function SignUp (data) {
       return res.data;
     }
     catch (err) {
-      return "Sorry! an error Occured."
+      // return "Sorry! an error Occured."
+      return err
     }
   }
 }
@@ -176,7 +176,8 @@ export function activateAccount (data) {
       return res.data;
     }
     catch (err) {
-      return "Sorry! an error Occured."
+      return err
+      // return "Sorry! an error Occured."
     }
     // try {
     //   const res = await axios.post(`${baseUrl}/v1/verify`, data, config)
@@ -214,7 +215,8 @@ export function getDollar(){
       }
     }
     catch (err) {
-      return "Sorry! an error Occured."
+      return err
+      // return "Sorry! an error Occured."
     }
   }
 }
@@ -308,7 +310,8 @@ export function ClaimBonus (data) {
       }
     }
     catch (err) {
-      return "Sorry! an error Occured."
+      return err
+      // return "Sorry! an error Occured."
     }
     // try {
     //   const res = await axios.post(`${baseUrl}/v1/bonus`, data, config)

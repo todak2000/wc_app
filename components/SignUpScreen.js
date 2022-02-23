@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import { Text,StyleSheet, View, TextInput, FlatList, TouchableOpacity, ScrollView} from 'react-native'
 import { Formik } from 'formik';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,6 +9,46 @@ import { bindActionCreators } from 'redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { SignUp } from '../actions/index';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Constants.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  return token;
+}
 
  function SignUpScreen(props){
   const {navigation, signUpApi} = props;
@@ -24,6 +64,31 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
   const [errorPassword, setErrorPassword] = useState(false);
   const [errorPhone, setErrorPhone] = useState(false);
   const [errorArea, setErrorArea] = useState(false);
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+  // const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    // This listener is fired whenever a notification is received while the app is foregrounded
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
 
   const getPhone =(country)=>{
     if (country === "Saudi Arabia"){
@@ -79,10 +144,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
                     area:values.area,
                     code:values.code,
                     countryCode:countryCode, 
-                    country:country
+                    country:country,
+                    pushNotificationToken:expoPushToken,
 
                   }
-                  console.log(data)
+                  // console.log(data)
                   setLoading(true);
                   signUpApi(data).then(res=>{
                     if (res){
