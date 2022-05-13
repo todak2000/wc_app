@@ -7,10 +7,13 @@ const store = {
     email: "",
     country: "",
     tokenBalance:0,
-    phone: ""
+    phone: "",
+    recycleCount:0,
+    dailyBonus:false
   },
   tx_data:{},
-  following:0,
+  fl_data:{},
+  // following:0,
   followers:0,
   refCode:"WC0000",
   bonusOne:{
@@ -18,25 +21,25 @@ const store = {
     bonus:"Do you know that recycling rate has not improved since the 80s. it has been less than 20% since then.",
     timer:5000,
     done:false,
-    coin:1,
+    coin:0.5,
   },
   bonusTwo:{
     type:"video",
     url:"https://youtu.be/0vCY3k3ffGQ",
     timer:30000,
     done:false,
-    coin:5,
+    coin:1,
   },
   bonusThree:{
     type:"other",
     bonus:"Scan 10 recyclables today",
     done:false,
-    coin:7,
+    coin:0.5,
   },
   bonusDone:false,
   date:new Date(),
-  dailyRecyclingCount:0
-
+  dailyRecyclingCount:0,
+  
 };
 
 function reducer (state = store, action) {
@@ -50,17 +53,37 @@ function reducer (state = store, action) {
           email: action.user_data.email,
           country: action.user_data.country,
           tokenBalance:action.user_data.tokenBalance,
-          phone: action.user_data.phone
+          phone: action.user_data.phone,
+          recycleCount:action.user_data.recycleCount,
         }, 
         tx_data:action.tx_data,
-        refCode:action.user_id
+        fl_data:action.fl_data,
+        refCode:action.user_id,
+        followers:action.user_data.followersCount,
+        bonusOne : {
+          ...state.bonusOne,
+          done: action.user_data.dailyBonusOneDone,
+          bonus: action.user_data.bonusOne,
+          coin: action.user_data.bonusOneCoin,
+        },
+        bonusTwo : {
+          ...state.bonusTwo,
+          done: action.user_data.dailyBonusTwoDone,
+          url: action.user_data.bonusTwo,
+          coin: action.user_data.bonusTwoCoin,
+        },
+        bonusThree : {
+          ...state.bonusThree,
+          done: action.user_data.dailyBonusThreeDone,
+        },
       };
     case ADD_TOKEN :
       return {
         ...state,
         user: {
           ...state.user,
-          tokenBalance : state.user.tokenBalance+action.amount
+          tokenBalance : state.user.tokenBalance+action.amount,
+          recycleCount:state.user.recycleCount+ 1,
         },
         dailyRecyclingCount: state.dailyRecyclingCount+1
       };

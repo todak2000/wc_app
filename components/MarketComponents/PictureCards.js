@@ -3,7 +3,7 @@ import {ImageBackground, StyleSheet, Text, View } from 'react-native'
 
 
 const PictureCards = (props) => {
-    const {section,backgroundColor,source}=props
+    const {section, index, source}=props
     // const backgroundColor = 'rgba(255, 8, 191, 0.38)'
     // const section = "The Market Place"
     
@@ -12,7 +12,7 @@ const PictureCards = (props) => {
     
     return (
         <ImageBackground source={source} resizeMode='cover' imageStyle={{borderRadius:10}} style={styles.image}>
-        <View style={[styles.container, {backgroundColor}]}>
+        <View style={[styles.container, {backgroundColor:index % 2 === 0? "rgba(255, 8, 191, 0.58)" : "rgba(9, 72, 80, 0.58)"}]}>
             <Text style={styles.section}>{section}</Text>
         </View>
         </ImageBackground>

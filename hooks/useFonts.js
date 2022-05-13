@@ -16,7 +16,11 @@ import { Rubik } from '../assets/fonts/Rubik.ttf';
 
 export default useFonts = async () => {
   await Font.loadAsync({
-    Rubik: Rubik,
+    // Rubik: Rubik,
+    Rubik700:Rubik_700Bold,
+    Rubik300:Rubik_300Light,
+    Rubik400:Rubik_400Regular,
+    RubikBold:Rubik_900Black
     // Rubik: require("../assets/fonts/Rubik.ttf")
 
   });

@@ -3,7 +3,7 @@ import { Text,StyleSheet, View, TouchableOpacity} from 'react-native'
 import Button from './AuthComponents/Button'
 import {MaterialCommunityIcons, Ionicons} from '@expo/vector-icons'
 import ScannerGreen from './TabComponents/ScannerGreen'
-
+import ScannerSVG from '../components/SVGComponents/ScannerSVG'
 import {Camera} from 'expo-camera'
 
  function ScannerScreen(props){
@@ -37,12 +37,11 @@ import {Camera} from 'expo-camera'
             <View style={styles.flexy}>
               <View style={styles.flexyInner}>
                 <ScannerGreen />
-                <Text style={styles.flexyText}>Scan Waste Item</Text>
+                <Text style={styles.flexyText}>Place Item properly for capture</Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#146209"  onPress={()=>console.log("hi press me")}/>
             </View>
-
-            <View style={styles.lower}>
+            <ScannerSVG />
+            {/* <View style={styles.lower}>
               <View style={styles.flexyLower}>
                 <Ionicons name="checkbox-outline" size={20} color="#87DC7A" /> 
                 <Text style={styles.textLower}>Please stay in an open environment</Text>
@@ -55,8 +54,8 @@ import {Camera} from 'expo-camera'
                 <Ionicons name="checkbox-outline" size={20} color="#87DC7A" /> 
                 <Text style={styles.textLower}>Ensure good ventilation</Text>
               </View>
-            </View>
-            <Button buttonText="Scan Now" onPress={__startCamera}/>
+            </View> */}
+            <Button buttonText="Snap Now" onPress={__startCamera} />
           {/* </View>
           } */}
         </View>
@@ -79,11 +78,12 @@ const styles = StyleSheet.create({
       paddingLeft:"10%",
       paddingRight:"10%"
     },
+
     flexyInnerGreen:{
       justifyContent:"space-around",
     },
     lower:{
-      padding:"10%",
+      // padding:"10%",
     },
     flexyEnd:{
       flexDirection:"row",
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
       marginLeft:10,
       fontFamily:"Rubik",
       fontSize:15,
-      fontWeight:"bold",
+      // fontWeight:"bold",
     },
     flexyLower:{
       flexDirection:"row",
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
       color:"#146209",
       fontFamily:"Rubik",
       fontSize:15,
-      fontWeight:"bold",
+      // fontWeight:"bold",
     },
     flexyText2:{
       padding:"2%",

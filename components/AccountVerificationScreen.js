@@ -35,7 +35,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
     return (
 
         <View style={styles.container}>
-          <Top navigation={navigation} textHeader="Accout Verification"/>
+          <Top navigation={navigation} textHeader="Account Verification"/>
           <View style={styles.containerWhite}>
           <Spinner visible={loading}/>
             <Formik
@@ -48,9 +48,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                     user_id: userId,
 
                   }
-                  console.log(data)
+                  // console.log(data)
                   activateAccountApi(data).then(res=>{
                     setLoading(true);
+                    // console.log(res)
                     if (res){
                       if (res.success ===true && res.status === 200){
                         setTimeout(() => {
@@ -74,19 +75,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                 <View style={styles.formContainer}>
                   {message !=="" && <Text style={styles.result}> {message}</Text>}
                   <ForgotImage />
-                  <Text style={styles.formText}>Enter Verification Code</Text>
+                  <Text style={styles.formText}>Enter Verification Code sent to your email</Text>
                   <TextInput
                     onChangeText={handleChange('code')}
                     onBlur={handleBlur('code')}
                     value={values.code}
                     style={styles.formInput}
                     maxLength={4} 
-                    keyboardType="numeric"
+                    // keyboardType="numeric"
                     autoCapitalize='none'
                     autoCorrect={false}
                   />
                   <TouchableOpacity>
-                  <Text style={styles.formText2}>Resent ActivationCode</Text>
+                  {/* <Text style={styles.formText2}>Resent ActivationCode</Text> */}
                   </TouchableOpacity>
                   <Button onPress={handleSubmit} buttonText="Activate Account" />
                 </View>
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     containerWhite:{
-      height:"80%",
+      height:"90%",
       position:"absolute",
       bottom:0,
       backgroundColor:"#fff",

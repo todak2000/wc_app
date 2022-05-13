@@ -2,7 +2,7 @@
   "expo": {
     "name": "wastecoin",
     "slug": "wastecoin",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/iconOne2.png",
     "splash": {
@@ -18,16 +18,16 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.wastecoin.delta",
-      "buildNumber": "1.0.0"
+      "bundleIdentifier": "co.wastecoin.www",
+      "buildNumber": "1.0.3"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-iconTwo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.wastecoin.delta",
-      "versionCode": 1
+      "package": "co.wastecoin.www",
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"

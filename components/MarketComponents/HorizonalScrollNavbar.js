@@ -7,16 +7,17 @@ import Partners from './Partners';
 import LocalMarket from './LocalMarket';
 import Donation from './Donation';
 import HomeMadeProducts from './HomeMadeProducts';
+import { useRoute } from '@react-navigation/native';
 
-
-const HorizonalScrollNavbar = () => {
+const HorizonalScrollNavbar = ({navigation}) => {
 
     const [ clear, setClear ] = useState(true);
     const [ donation, setDonation ] = useState(false);
     const [ subscription, setSubscription ] = useState(false);
     const [ homeMade, setHomeMade ] = useState(false);
     const [ partner, setPartner ] = useState(false);
-   
+
+    const route = useRoute()
 
    
 
@@ -43,7 +44,7 @@ const HorizonalScrollNavbar = () => {
              backgroundColor={subscription? "#D2FFCB": null}
              color={subscription? "#4F9A51": "#4F9A51"}
              onPress={()=> {setClear(false),setDonation(false) , setSubscription(true),setHomeMade(false),setPartner(false) }}
-            name="Subscription"
+             name="Subscription"
             />
 
             <ButtonComponent
@@ -64,11 +65,11 @@ const HorizonalScrollNavbar = () => {
      </View>
      <View style={{display:"flex" ,flexDirection: 'column',}}>
      <ScrollView  vertical={true} showsVerticalScrollIndicator={false}>
-     <Subscription display={subscription? "flex" : "none"}/>
-     <Partners display={partner? "flex" : "none"}/>
-     <LocalMarket display={clear? "flex" : "none"}/>
-     <HomeMadeProducts display={homeMade? "flex" : "none"}/>
-     <Donation display={donation? "flex" : "none"}/>
+     <Subscription navigation={navigation} display={subscription? "flex" : "none"}/>
+     <Partners navigation={navigation} display={partner? "flex" : "none"}/>
+     <LocalMarket  route={route} navigation={navigation} display={clear? "flex" : "none"}/>
+     <HomeMadeProducts navigation={navigation} display={homeMade? "flex" : "none"}/>
+     <Donation navigation={navigation} display={donation? "flex" : "none"}/>
     </ScrollView>
     </View>
      </View>

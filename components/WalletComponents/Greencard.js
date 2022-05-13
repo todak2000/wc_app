@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
       shadowRadius: 1,
       padding:"2%",
       flexDirection:"row",
-      marginTop:40,
+      marginTop:20,
       justifyContent:"flex-start",
     },
     flexyLeft:{

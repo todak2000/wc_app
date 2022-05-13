@@ -14,26 +14,22 @@ const ConverHistory = (props) => {
 export default ConverHistory
 const styles = StyleSheet.create({
     container: {
-      width:"100%%",
+      width:"100%",
       backgroundColor:"#4F9A51",
       borderRadius: 3,
       shadowRadius: 1,
-      padding:"5%",
+      padding:"3%",
       flexDirection:"row",
-      marginTop:50,
+      marginTop:10,
       justifyContent:"space-between",
     },
     text:{
         color:"#ffffff",
-        fontSize: 19,
-        fontFamily:'Rubik',
+        fontSize: 14,
+        fontFamily:'Rubik300',
         fontWeight: 'bold',
         marginLeft:10,
       },
-    symbol:{
-        color: "#ffffff",
-        fontSize:19,
-        fontWeight: 'bold',
-    }
+   
 
   });

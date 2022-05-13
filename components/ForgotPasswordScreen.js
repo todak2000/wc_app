@@ -22,7 +22,7 @@ import { Formik } from 'formik';
               initialValues={{ email: '' }}
               onSubmit={values => 
                 {
-                  console.log(values)
+                  // console.log(values)
                   setShowResult(true)
                   // return values
                   // navigation.navigate("Home",  {data: values})

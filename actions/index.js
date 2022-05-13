@@ -14,12 +14,13 @@ export const CLAIM_BONUS = 'CLAIM_BONUS';
 export const UPDATE_BONUS_STATE = 'UPDATE_BONUS_STATE';
 export const RESTART_BONUS_STATE = 'RESTART_BONUS_STATE';
 
-export function receiveUser (user_id, user_data, tx_data) {
+export function receiveUser (user_id, user_data, tx_data, fl_data) {
   return {
     type: USER_DATA,
     user_id,
     user_data,
-    tx_data
+    tx_data, 
+    fl_data
   }
 }
 
@@ -121,41 +122,46 @@ export function SignUp (data) {
     },
   };
   return async (dispatch) => {
-    const res = await axios.post(`${baseUrl}/v1/signup`, data, config)
-    if(res.data.status == 200){
-      try {
-        await AsyncStorage.setItem("token", res.data.user_id);
-        // dispatch(receiveUser(res.data.user_id))
-     } catch (err) {
-        console.error(err);
-     } 
+    try{
+      const res = await axios.post(`${baseUrl}/v1/signup`, data, config)
+      if(res.data.status == 200){
+          await AsyncStorage.setItem("token", res.data.user_id);
+      }
+      return res.data;
     }
-    // const res = await axios.post(`${baseUrl}/api/v1/user/register`, data, config)
-    // if(res.data.status === 200){
-    //   dispatch(receiveUser(data, res.data._id))
-    // }
-    return res.data;
+    catch (err) {
+      return "Sorry! an error Occured."
+    }
   }
 }
 export function SignIn (data) {
   
   return async (dispatch) => {
-    // console.log(data)
-    const res = await axios.post(`${baseUrl}/v1/signin`, data)
-    console.log(res.data)
-    if(res.data.status == 200){
-      try {
-        await AsyncStorage.setItem("token", res.data.user_id);
-        dispatch(receiveUser(res.data.user_id, res.data.user_data, res.data.tx_data))
-     } catch (err) {
-        console.error(err);
-     } 
+    try {
+      const res = await axios.post(`${baseUrl}/v1/signin`, data)
+      // console.log(res)
+      if(res.data.status == 200){
+          await AsyncStorage.setItem("token", res.data.user_id);
+          dispatch(receiveUser(res.data.user_id, res.data.user_data, res.data.tx_data, res.data.fl_data))
+      }
+      return res.data;
     }
-    return res.data;
-    
+   catch (err) {
+    return err
+ }   
   }
 }
-
+export function sendMessage (data){
+  return async (dispatch) => {
+    try {
+      const res = await axios.post(`${baseUrl}/v1/sendMessage`, data)
+      return res.data;
+    }
+   catch (err) {
+    return err
+ }   
+  }
+}
 
 export function activateAccount (data) {
   
@@ -165,11 +171,50 @@ export function activateAccount (data) {
     },
   };
   return async (dispatch) => {
-    try {
+    try{
       const res = await axios.post(`${baseUrl}/v1/verify`, data, config)
       return res.data;
-    } catch (err) {
-      console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+    }
+    catch (err) {
+      return "Sorry! an error Occured."
+    }
+    // try {
+    //   const res = await axios.post(`${baseUrl}/v1/verify`, data, config)
+    //   return res.data;
+    // } catch (err) {
+    //   console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+    // }
+  }
+}
+
+export function getDollar(){
+  var options = {
+    method: 'GET',
+    url: 'https://fixer-fixer-currency-v1.p.rapidapi.com/latest',
+    params: {base: 'USD', symbols: 'GBP,JPY,EUR'},
+    headers: {
+      'x-rapidapi-host': 'fixer-fixer-currency-v1.p.rapidapi.com',
+      'x-rapidapi-key': 'a6e7f8cabamsh1ea4ecab6649a58p1c0a96jsn631ceaa8bac4'
+    }
+  };
+  return async (dispatch) => {
+    // console.log(data)
+    try{
+      axios.request(options)
+      const res = await axios.request(options)
+      if(res.data.success ===true){
+        try {
+            return res.data;
+        } catch (err) {
+          return err
+        } 
+      }
+      else{
+        return res.data;
+      }
+    }
+    catch (err) {
+      return "Sorry! an error Occured."
     }
   }
 }
@@ -178,23 +223,64 @@ export function Snap (data) {
 
   const config = {
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
       // 'Authorization': `Bearer ${getToken()}`
     },
   };
   return async (dispatch) => {
-    try {
-      const res = await axios.post(`${baseUrl}/v1/aws`, data, config)
+    console.log(data)
+    try{
+      const res = await axios.post(`${baseUrl}/v1/coin_payment`, data, config)
       if(res.data.status == 200 & res.data.success ===true){
-        dispatch(addToken(parseFloat(0.10)))
-        dispatch(addTx(res.data.tx_data))
+        try {
+          dispatch(addToken(parseFloat(0.50)))
+          dispatch(addTx(res.data.tx_data))
+            return res.data;
+        } catch (err) {
+          return err
+        } 
       }
-      return res.data;
-    } catch (err) {
-      console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+      else{
+        return res.data;
+      }
+    }
+    catch (err) {
+      return err
     }
   }
 }
+
+
+// export function Snap (data) {
+
+//   const config = {
+//     headers: {
+//       "Content-Type": "multipart/form-data",
+//       // 'Authorization': `Bearer ${getToken()}`
+//     },
+//   };
+//   return async (dispatch) => {
+//     // console.log(data)
+//     try{
+//       const res = await axios.post(`${baseUrl}/v1/aws`, data, config)
+//       if(res.data.status == 200 & res.data.success ===true){
+//         try {
+//           dispatch(addToken(parseFloat(0.10)))
+//           dispatch(addTx(res.data.tx_data))
+//             return res.data;
+//         } catch (err) {
+//           return err
+//         } 
+//       }
+//       else{
+//         return res.data;
+//       }
+//     }
+//     catch (err) {
+//       return "Sorry! an error Occured."
+//     }
+//   }
+// }
 
 
 export function ClaimBonus (data) {
@@ -206,16 +292,34 @@ export function ClaimBonus (data) {
     },
   };
   return async (dispatch) => {
-    try {
+    try{
       const res = await axios.post(`${baseUrl}/v1/bonus`, data, config)
       if(res.data.status == 200 & res.data.success ===true){
-        dispatch(claimBonus(parseFloat(data.coin)))
-        dispatch(addTx(res.data.tx_data))
+        try {
+          dispatch(claimBonus(parseFloat(data.coin)))
+          dispatch(addTx(res.data.tx_data))
+            return res.data;
+        } catch (err) {
+          return err
+        } 
       }
-      return res.data;
-    } catch (err) {
-      console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+      else{
+        return res.data;
+      }
     }
+    catch (err) {
+      return "Sorry! an error Occured."
+    }
+    // try {
+    //   const res = await axios.post(`${baseUrl}/v1/bonus`, data, config)
+    //   if(res.data.status == 200 & res.data.success ===true){
+    //     dispatch(claimBonus(parseFloat(data.coin)))
+    //     dispatch(addTx(res.data.tx_data))
+    //   }
+    //   return res.data;
+    // } catch (err) {
+    //   console.error(`Error received from axios.post: ${JSON.stringify(err)}`);
+    // }
   }
 }
 
@@ -228,5 +332,33 @@ export function UpdateBonusState (bonusName) {
 export function RestartBonusState () {
   return async (dispatch) => {
     dispatch(restartBonusState())
+  }
+}
+
+export function getImageUrl (data) {
+  
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      // 'Authorization': `Bearer ${getToken()}`
+    },
+  };
+  return async (dispatch) => {
+    try{
+      const res = await axios.post(`${baseUrl}/v1/imgUrl`, data, config)
+      if(res.data.status == 200 & res.data.success ===true){
+        try {
+            return res.data;
+        } catch (err) {
+          return err
+        } 
+      }
+      else{
+        return res.data;
+      }
+    }
+    catch (err) {
+      return err
+    }
   }
 }

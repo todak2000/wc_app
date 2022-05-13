@@ -30,8 +30,8 @@ export default OnboardingOneScreen
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingLeft:"10%",
-      paddingRight:"10%",
+      paddingLeft:"7%",
+      paddingRight:"7%",
     },
     bottom:{
       position:"absolute",

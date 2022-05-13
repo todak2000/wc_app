@@ -1,12 +1,17 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { ImageBackground, Dimensions, StyleSheet, Text, View } from 'react-native'
 import NotificationBell from '../SVGComponents/NotificationBell'
+import Slider from '@react-native-community/slider';
+
 
 const {width,height} =Dimensions.get("window")
 
 const DonationCarouselCard = ({item}) => {
 
+    const [range,setRange]=useState("")
 
+
+const data= 500
     return (
 
         <ImageBackground source={{uri: item.image}} resizeMode='cover' imageStyle={{ borderRadius:10}}style={styles.image}>
@@ -23,10 +28,34 @@ const DonationCarouselCard = ({item}) => {
                     <Text style={styles.cardTitle}>
                         {item.cardTitle}   
                     </Text>
+
+                    <View style={styles.rangeWordCase}>
+                        <Text style={styles.rangeWord}>
+                            Total Donation
+                        </Text>
+                        <Text style={styles.rangeWord}>
+                            WC  { Math.floor(range)}
+                        </Text>
+                    </View>
                 </View>
                 {/* <SliderComponent
-                
+                    value={data}
+                    maximumValue={100}
+                    minimumValue={0}
                 /> */}
+                
+                <Slider
+                    disabled="true"
+                    value={data}
+                    onValueChange={(value)=>setRange(value)}
+                    style={{width: "100%", height: 40}}
+                    minimumValue={0}
+                    maximumValue={1000}
+                    minimumTrackTintColor="#FF0099"
+                    maximumTrackTintColor="#FB79D8"
+                    // customCountStyle=i
+                />
+        
                 <View style={styles.bottomDownPart} >
                 <View style={styles.objective} >
                     <Text style={styles.objectiveText}>Objective</Text>
@@ -66,10 +95,11 @@ const styles = StyleSheet.create({
         },
         image:{
             flex: 1,
-            width: width-53,
-            height: height/3,
-            // marginLeft:10,
-            // marginRight:10,
+            width: width-70,
+            height: 218,
+            // margin: 5,
+            marginLeft: 10,
+            marginRight:10,
            },
    
         bottomPart:{
@@ -133,8 +163,10 @@ const styles = StyleSheet.create({
         bottomTopPart:{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
+            width: "100%"
         },
+        
         cardTitle:{
             width: "60%",
             fontSize: 12,
@@ -149,9 +181,7 @@ const styles = StyleSheet.create({
             display: 'flex',
             flexDirection:"column",
             justifyContent:"flex-end",
-            
         },
-
 
         join:{
             fontFamily: "Rubik",
@@ -161,6 +191,7 @@ const styles = StyleSheet.create({
             lineHeight: 10,
             color: "#FFD0F2",
         },
+
         donor:{
             fontFamily: "Rubik",
             fontStyle: "normal",
@@ -168,6 +199,26 @@ const styles = StyleSheet.create({
             fontSize: 10,
             lineHeight: 10,
             color: "#FFD0F2",
-        }
-           
+        },
+
+        rangeWord:{
+            fontFamily: "Rubik",
+            fontStyle: "normal",
+            fontWeight: "500",
+            fontSize: 10,
+            lineHeight: 10,
+            color: "#FFD0F2",
+
+        },
+
+        rangeWordCase:{
+            backgroundColor: "#0E0A3B",
+            height: 30,
+            width: 100,
+            display:'flex',
+            flexDirection: "column",
+            justifyContent: "space-around",
+            alignItems: "center",
+            borderRadius: 10
+        }   
     });

@@ -1,25 +1,26 @@
 import React from 'react'
 import { Text,StyleSheet, View, TouchableOpacity, ScrollView} from 'react-native'
-import {connect} from 'react-redux'
+
 import HorizonalScrollNavbar from './MarketComponents/HorizonalScrollNavbar'
+
 import MarketHeader from './MarketComponents/MarketHeader'
  function MarketPlaceScreen(props){
   //  console.log(props)
   const {navigation} = props
+  
     return (
 
         <View style={styles.container}>
           <MarketHeader balance="WC120"/>
-          <HorizonalScrollNavbar/>
-
-
+          <HorizonalScrollNavbar  navigation={navigation}/>
+  
              {/* <TouchableOpacity 
               style={styles.container}
-              onPress={()=>navigation.navigate("SignIn")}
-           > */}
+              onPress={()=>navigation.navigate("Purchase")}
+           > 
              
-            {/* <Text> Market Place - Back {props.user_id}</Text> */}
-          {/* </TouchableOpacity> */}
+            <Text> Market Place - Back {props.user_id}</Text>
+          </TouchableOpacity> */}
 
         </View>
         

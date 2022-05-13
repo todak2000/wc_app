@@ -27,10 +27,11 @@ import { ClaimBonus, UpdateBonusState } from '../../actions/index';
   const __claimBonus = () => {
     const data = {
       coin: coin,
-      user_id:user.user_id
+      user_id:user.user_id,
+      bonusName: bonusName
 
     }
-    console.log(bonusName)
+    // console.log(bonusName)
     // setOtherScreen(false)
     updateBonusStateApi(bonusName)
     bonusApi(data).then(res=>{

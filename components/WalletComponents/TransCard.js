@@ -7,7 +7,7 @@ import Youtubetrans from '../SVGComponents/Youtubetrans'
 
 
 const TransCard = (props) => {
-    const{ imageUri, textWord, textCoin}= props
+    const{ imageUri,textDate, textWord, textCoin, index, tx_type}= props
 
 
     return (
@@ -15,10 +15,18 @@ const TransCard = (props) => {
             <View style={styles.leftPart}>
             {textWord.includes("discount")? <DiscountTrans/> : textWord.includes("youtube")? <Youtubetrans/> : <MoneyStar/> } 
 
-                <Text  style={styles.textWord}>{textWord}</Text>
+                <View style={styles.divi}>
+                  <Text  style={styles.textWord}>{textDate}</Text>
+                  <Text  style={styles.textWord}>{textWord}</Text>
+                </View>
             </View>
             <View style={styles.rightPart}> 
-                <Text style={styles.textCoin}>{textCoin}</Text>
+                {tx_type =="Credit"?
+                <Text style={styles.textCoinGreen}>+WC {textCoin}</Text>
+                :
+                <Text style={styles.textCoinRed}>-WC {textCoin}</Text>
+                }
+
             </View>
         </View>
     )
@@ -28,7 +36,6 @@ export default TransCard
 const styles = StyleSheet.create({
     container: {
       width:"100%",
-    //   backgroundColor:"#ffffff",
       borderRadius: 3,
       shadowRadius: 1,
       padding:"5%",
@@ -38,6 +45,9 @@ const styles = StyleSheet.create({
       borderBottomWidth: 0.5,
       borderColor:"rgba(153, 255, 156, 1)",
 
+    },
+    divi:{
+      width:"90%",
     },
 
     leftPart: {
@@ -50,7 +60,7 @@ const styles = StyleSheet.create({
 
 
     rightPart: {
-        width:"17%",
+        width:"40%",
         backgroundColor:"transparent",
         flexDirection:"row",
         justifyContent:"center",
@@ -62,21 +72,26 @@ const styles = StyleSheet.create({
     textWord:{
         fontFamily:'Rubik',
         color:"#000000",
-        fontSize: 10,
+        fontSize: 13,
         fontFamily:"Rubik",
-        fontWeight: "bold",
+        // fontWeight: "bold",
         marginLeft:10,
         width: "90%",
       },
      
-    textCoin:{
+    textCoinRed:{
         fontFamily:'Rubik',
-        color: "#000000",
-        fontSize:10,
-        fontWeight: "bold",
-        // marginTop: 20,
+        color: "#FF4900",
+        fontSize:14,
+        // fontWeight: "bold",
     },
 
+    textCoinGreen:{
+      fontFamily:'Rubik',
+      color: "#146209",
+      fontSize:14,
+      // fontWeight: "bold",
+  },
     // textDate:{
     //     fontFamily:'Rubik',
     //     color: "#000000",

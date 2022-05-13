@@ -1,168 +1,189 @@
 import React,{useState} from 'react'
-import {ImageBackground, Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {ImageBackground, Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, FlatList } from 'react-native';
 import FilterIcon from '../SVGComponents/FilterIcon';
 import MarketCards from './MarketCards';
 import MarketSectionHeader from './MarketSectionHeader';
 import PictureCards from './PictureCards';
+import { Market } from './DummyData';
+import { TabRouter } from '@react-navigation/native';
+import ModalTemplate from './ModalTemplate';
+import FilterSetting from './FilterSetting';
+import InternetNotAvailable from './InternatNotAvailable';
 
-const LocalMarket = ({display}) => {
+
+const LocalMarket = (props) => {
+    const{display,navigation}=props
+    // console.log(props)
     const [text, changeText] = useState("");
+    const [change, setChange] = useState("");
+    const [noInternet, setNoInternet]=useState(false)
 
+    const toggleChange=()=>{
+        setChange(!change)
+    }
 
-    
-    const image = require('../../assets/youtube.png') 
-
-    const grains= require('../../assets/grains.png') 
-
-    const vegetable= require('../../assets/vegetableMarket.png') 
-
-    const homemade= require('../../assets/homemade.png') 
-
-    const picture = require("../../assets/TheMarket.png")
-    const donation = require("../../assets/donation.png")
-    const handmade = require("../../assets/HandMade.png")
-        
+    const toggleNoInternet=()=>{
+        setNoInternet(!noInternet)
+    }
 
 
 
     return (
         <View style={[styles.container, { display }]}>
-              <TextInput
+                <TextInput
                     style={styles.input}
                     onChangeText={changeText}
                     value={text}
                     placeholder="search"
                 />
-                <TouchableOpacity style={styles.filterButton}>
+                <TouchableOpacity style={styles.filterButton}  onPress={toggleChange}>
                     <View style={styles.filterTitle}>
                         <FilterIcon/>
                         <Text style={styles.filterText}>Filter Shop</Text>
                     </View>
                 </TouchableOpacity>
                 <MarketSectionHeader marketSection="Local Market"/>
-               <View >
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.rollOne}>
+                <View >
+                <FlatList
+                    keyExtractor={(item)=>item.id}
+                    data={Market?.[0].foodStuff}
+                    renderItem={({item})=>(
+                    <TouchableOpacity onPress={()=>{navigation.navigate("Purchase",{item:item})}}>
                     <MarketCards 
+                        key={item.id}
+                        price={item.price}
+                        image={item.image}
+                        titleHeader={item.titleHeader}
+                        titleBody={item.titleBody}
+                        titleFooter={item.titleFooter}
+                    />
+                        </TouchableOpacity> 
+                    )}
+                        horizontal
+                        pagingEnabled
+                        scrollEnabled
+                        snapToAlignment='center'
+                        scrollEventThrottle={16}  
+                        decelerationRate={"fast"}
+                        showsHorizontalScrollIndicator={false}
+                />
 
-                         price="140"
-                        image={grains}
-                        titleHeader="YAYA Market" 
-                        titleBody="50 bags of rice and Full basket of fruits"
-                        titleFooter="Food store"
-                     />
-                      <MarketCards 
-                         price="150"
-                        image={grains}
-                        titleHeader="YAYA Market" 
-                        titleBody="50 bags of rice and Full basket of fruits"
-                        titleFooter="Food store"
-                     />
-                      <MarketCards 
-                        price="200"
-                        image={grains}
-                        titleHeader="YAYA Market" 
-                        titleBody="50 bags of rice and Full basket of fruits"
-                        titleFooter="Food store"
-                     />
-                     
-                    </ScrollView>   
                 </View> 
                 <View style={{marginTop:10}}>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.rollOne}>
+                <FlatList
+                    keyExtractor={(item)=>item.id}
+                    data={Market?.[0].fruitVegetable}
+                    renderItem={({item})=>(
+                    <TouchableOpacity onPress={()=>{navigation.navigate("Purchase",{item:item})}}>
                     <MarketCards 
-                         price="120"
-                        image={vegetable}
-                        titleHeader="YAYA Market" 
-                        titleBody="50 bags of rice and Full basket of fruits"
-                        titleFooter="Food store"
-                     />
-                    <MarketCards 
-                         price="100"
-                        image={vegetable}
-                        titleHeader="YAYA Market" 
-                        titleBody="50 bags of rice and Full basket of fruits"
-                        titleFooter="Food store"
-                     />
-                    <MarketCards
-                        price="120" 
-                        image={vegetable}
-                        titleHeader="YAYA Market" 
-                        titleBody="50 bags of rice and Full basket of fruits"
-                        titleFooter="Food store"
-                     />
-                       
-                    </ScrollView>   
+                    key={item.id}
+                    price={item.price}
+                    image={item.image}
+                    titleHeader={item.titleHeader}
+                    titleBody={item.titleBody}
+                    titleFooter={item.titleFooter}
+                    />
+                        </TouchableOpacity> 
+                    )}
+                        horizontal
+                        pagingEnabled
+                        scrollEnabled
+                        snapToAlignment='center'
+                        scrollEventThrottle={16}  
+                        decelerationRate={"fast"}
+                    showsHorizontalScrollIndicator={false}
+                />
                 </View> 
                 <MarketSectionHeader marketSection="Subscriptions"/>
                 <View >
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.rollOne}>
-                    <MarketCards
-                        price="120" 
-                        image={image}
-                        titleHeader="YOUTUBE" 
-                        titleBody="60% off youtube prime subscription from youtube"
-                        titleFooter="get your 60% discounts"
-                     />
+                <FlatList
+                    keyExtractor={(item)=>item.id}
+                    data={Market?.[1].subscription}
+                    renderItem={({item})=>(
+                    <TouchableOpacity onPress={()=>{navigation.navigate("Purchase",{item:item})}}>
                     <MarketCards 
-                        price="120"
-                        image={image}
-                        titleHeader="YOUTUBE" 
-                        titleBody="60% off youtube prime subscription from youtube"
-                        titleFooter="get your 60% discounts"
-                     />
-                    <MarketCards 
-                        price="120"
-                        image={image}
-                        titleHeader="YOUTUBE" 
-                        titleBody="60% off youtube prime subscription from youtube"
-                        titleFooter="get your 60% discounts"
-                     />
-                    </ScrollView>   
+                    key={item.id}
+                    price={item.price}
+                    image={item.image}
+                    titleHeader={item.titleHeader}
+                    titleBody={item.titleBody}
+                    titleFooter={item.titleFooter}
+                    />
+                        </TouchableOpacity> 
+                    )}
+                        horizontal
+                        pagingEnabled
+                        scrollEnabled
+                        snapToAlignment='center'
+                        scrollEventThrottle={16}  
+                        decelerationRate={"fast"}
+                    showsHorizontalScrollIndicator={false}
+                />
                 </View> 
                 <MarketSectionHeader marketSection="Home Made Products"/>
                 <View >
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.rollOne}>
+                <FlatList
+                    keyExtractor={(item)=>item.id}
+                    data={Market?.[2].homeMadeProduct}
+                    renderItem={({item})=>(
+                    <TouchableOpacity onPress={()=>{navigation.navigate("Purchase",{item:item})}}>
                     <MarketCards 
-                        price="700"
-                        image={homemade}
-                        titleHeader="TANZANOC" 
-                        titleBody="Authentic Ethnic Handicraft gift item"
-                        titleFooter="Handicraft"
-                     />
-                       <MarketCards 
-                        price="700"
-                        image={homemade}
-                        titleHeader="TANZANOC" 
-                        titleBody="Authentic Ethnic Handicraft gift item"
-                        titleFooter="Handicraft"
-                     />
-                     <MarketCards 
-                        price="700"
-                        image={homemade}
-                        titleHeader="TANZANOC" 
-                        titleBody="Authentic Ethnic Handicraft gift item"
-                        titleFooter="Handicraft"
-                     />
-                      
-                    </ScrollView>   
+                    key={item.id}
+                    price={item.price}
+                    image={item.image}
+                    titleHeader={item.titleHeader}
+                    titleBody={item.titleBody}
+                    titleFooter={item.titleFooter}
+                    />
+                    </TouchableOpacity> 
+                    )}
+                        horizontal
+                        pagingEnabled
+                        scrollEnabled
+                        snapToAlignment='center'
+                        scrollEventThrottle={16}  
+                        decelerationRate={"fast"}
+                        showsHorizontalScrollIndicator={false}
+                />
                 </View> 
                 <View style={{marginTop:10}}>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.rollOne}>
-                    <PictureCards
-                        backgroundColor='rgba(255, 8, 191, 0.58)'
-                        section ="Browse Donation"source={donation}
-                    />
-                    <PictureCards
-                        backgroundColor="rgba(255, 8, 191, 0.58)"
-                        section ="The Market Place"source={picture} 
-                    />
-                    <PictureCards
-                      backgroundColor="rgba(9, 72, 80, 0.58)" 
-                      section = "Home Made Products" source={handmade}
-                    />
-                    </ScrollView>  
+                <FlatList
+                    keyExtractor={(item)=>item.id}
+                    data={Market?.[4].bottomPictureCard}
+                    renderItem={({item})=>(
+                    <TouchableOpacity 
+                    // onPress={()=>{navigation.navigate("Purchase",{item:item})}}
+                    >
+                        <PictureCards
+                            key={item.id}
+                            index={item.id}
+                            section ={item.section}
+                            source={item.source}
+                        />
+                    </TouchableOpacity> 
+                    )}
+                        horizontal
+                        pagingEnabled
+                        scrollEnabled
+                        snapToAlignment='center'
+                        scrollEventThrottle={16}  
+                        decelerationRate={"fast"}
+                        showsHorizontalScrollIndicator={false}
+                /> 
                 </View> 
-            {/* <Text>LocalMarket</Text> */}
+
+            <ModalTemplate visible={change}>
+                <FilterSetting
+                    toggleChange={toggleChange}
+                />
+             </ModalTemplate>
+
+             <ModalTemplate visible={noInternet}>
+             <InternetNotAvailable
+                    toggleUnSuccess={toggleNoInternet}
+                />
+             </ModalTemplate>
+
         </View>
     )
 }

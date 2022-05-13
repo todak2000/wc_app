@@ -1,21 +1,21 @@
 import React from 'react'
 import { StyleSheet, View, Text} from 'react-native'
-import { useFonts } from "@use-expo/font";
+// import { useFonts } from "@use-expo/font";
 
-const customFonts = {
-  Rubik: require("../../assets/fonts/Rubik.ttf"),
-};
+// const customFonts = {
+//   Rubik: require("../../assets/fonts/Rubik.ttf"),
+// };
 
  function Header(props){
 
-  const [isLoaded] = useFonts(customFonts);
+  // const [isLoaded] = useFonts(customFonts);
 
    const {headerText} = props
     return (
 
         <View style={styles.container}>
           {
-            isLoaded && <Text style={styles.text}>{headerText}</Text>
+            <Text style={styles.text}>{headerText}</Text>
           }
              
         </View>
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     text:{
       textAlign:"left",
       color:"#4F9A51",
-      fontSize: 28,
-      fontFamily:'Rubik',
-      fontWeight:"bold",
+      fontSize: 25,
+      fontFamily:'Rubik400',
+      fontWeight:"700",
     }
   });

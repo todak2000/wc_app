@@ -1,13 +1,11 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, View, Text} from 'react-native'
+import {StyleSheet, View, Text} from 'react-native'
 import Convert from '../SVGComponents/Convert'
 import ShopCoin from '../SVGComponents/ShopCoin'
 
 
-
  function Card(props){
-
-   const {balance, textOne, textTwo} = props
+   const {balance, textOne, textTwo, recycleCount, country} = props
     return (
            <View style={styles.container}>
     
@@ -23,16 +21,25 @@ import ShopCoin from '../SVGComponents/ShopCoin'
                 <Text style={styles.textBig}>{balance}</Text>
             </View>
             <View style={styles.childContainer}>
+                
+                <View style={styles.childRight}>
+                    <Convert/>
+                    <Text style={styles.childWord}>
+                    <Text style={styles.childConv}>{parseFloat(recycleCount*0.025).toFixed(2)} kg</Text>
+                    </Text>
+                </View>
                 <View style={styles.childLeft} >
                    <ShopCoin/>
                     <Text style={styles.childWord}>
-                      Shop:<Text style={styles.childShop}>12 </Text>
-                    </Text>
-                </View>
-                <View style={styles.childRight}>
-                 <Convert/>
-                    <Text style={styles.childWord}>
-                    Conv.:<Text style={styles.childConv}>50</Text>
+                      {/* {country === "UK" ?
+                      <Text style={styles.childShop}>$ {parseFloat(recycleCount*0.0012)}</Text>
+                      :
+                      } */}
+                      {country === "U.K" && <Text style={styles.childShop}>£ {parseFloat(balance*0.00087).toFixed(4)}</Text>}
+                      {country === "Nigeria" && <Text style={styles.childShop}>₦ {parseFloat(balance*0.45).toFixed(2)}</Text>}
+                      {country === "Saudi Arabia" && <Text style={styles.childShop}>SAR {parseFloat(balance*0.0045).toFixed(4)}</Text>}
+                      {country === "Other" && <Text style={styles.childShop}>$ {parseFloat(balance*0.0012).toFixed(4)}</Text>}
+                      
                     </Text>
                 </View>
             </View>
@@ -43,6 +50,7 @@ import ShopCoin from '../SVGComponents/ShopCoin'
     )
 }
 export default Card
+
 const styles = StyleSheet.create({
     container: {
       width:"100%",
@@ -97,18 +105,19 @@ const styles = StyleSheet.create({
         color:"#fff",
         fontSize: 60,
         fontFamily:'Rubik',
-        fontWeight:"bold"
+        // fontWeight:"bold"
       },
 
       childContainer:{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
       },
 
       childLeft:{
         display: 'flex',
         flexDirection: 'row',
+        marginLeft:5,
         justifyContent: 'space-evenly'
       },
 
@@ -116,7 +125,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        marginLeft:16,
+        marginLeft:5,
       },
       childWord:{
         color: '#ffffff',

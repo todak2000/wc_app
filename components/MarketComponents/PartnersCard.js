@@ -3,13 +3,13 @@ import {StyleSheet, Image, Text, View } from 'react-native'
 import PartnersButton from './PartnersButton'
 
 const PartnersCard = (props) => {
-    const {partnerName,partnerIndustry,partnersID,backgroundColor}=props
+    const {partnerName,partnerIndustry,partnersID,index}=props
 
  
- 
+    
  
     return (
-        <View style={[styles.container,{backgroundColor}]}>
+        <View style={[styles.container,{backgroundColor:index % 2 !== 0? "#D2FFCB" : "#FFFFFF"}]}>
             <View style={styles.leftHand}> 
                 <Image source={partnersID} resizeMode='cover' style={styles.picture}/>
                 <View style={styles.partnerWord}> 
@@ -50,6 +50,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems:'center',
         marginLeft:22,
+    },
+    picture:{
+        width: 52,
+        height: 46,
+        borderRadius: 12,
     },
     partnerWord:{
         marginLeft: 10,    

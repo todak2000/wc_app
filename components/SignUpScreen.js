@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Text,StyleSheet, View, TextInput, FlatList, TouchableOpacity} from 'react-native'
+import { Text,StyleSheet, View, TextInput, FlatList, TouchableOpacity, ScrollView} from 'react-native'
 import { Formik } from 'formik';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SignUpButton from './AuthComponents/ButtonWhite'
@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { SignUp } from '../actions/index';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
  function SignUpScreen(props){
   const {navigation, signUpApi} = props;
@@ -31,7 +32,7 @@ import { SignUp } from '../actions/index';
     else if(country === "Nigeria"){
       setCountryCode('+234')
     }
-    else if(country === "United Kingdom"){
+    else if(country === "U.K"){
       setCountryCode('+44')
     }
     else if(country === "Other"){
@@ -40,11 +41,17 @@ import { SignUp } from '../actions/index';
   }
     return (
 
-        <View style={styles.container}>
+        <KeyboardAwareScrollView style={styles.container}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={styles.container}
+          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+          scrollEnabled={false}
+        >
           <Spinner visible={loading}/>
+          <ScrollView style={styles.cont} showsVerticalScrollIndicator={false} >
             <Text style={styles.HeaderText}>Create an Account</Text>
             <Formik
-            initialValues={{ username: '', email:'', password:'', phone:'', area:'' }}
+            initialValues={{ username: '', email:'', password:'', phone:'', area:'', code:'' }}
             onSubmit={values => 
               {
                 // navigation.navigate("Verification")
@@ -70,7 +77,7 @@ import { SignUp } from '../actions/index';
                     password: values.password,
                     phone: countryCode + values.phone,
                     area:values.area,
-                    type:"manual",
+                    code:values.code,
                     countryCode:countryCode, 
                     country:country
 
@@ -130,8 +137,8 @@ import { SignUp } from '../actions/index';
                   autoCorrect={false}
                 />
                 <View style={styles.flexRow2}>
-                <Text style={styles.formText}>Country</Text>
-                <Text style={styles.formText}>Area/Region/State</Text>
+                  <Text style={styles.formText}>Country</Text>
+                  <Text style={styles.formText}>Area/Region/State</Text>
                 </View>
                 <View style={styles.flexRow}>
                 <TextInput
@@ -156,7 +163,7 @@ import { SignUp } from '../actions/index';
                   <FlatList
                     data={[
                       {country: country , key: country},
-                      {country: 'United Kingdom', key:1},
+                      {country: 'U.K', key:1},
                       {country: 'Saudi Arabia' , key:2},
                       {country: 'Nigeria' , key:3},
                       {country: 'Other', key:5},
@@ -187,40 +194,13 @@ import { SignUp } from '../actions/index';
                   onChangeText={handleChange('phone')}
                   onBlur={handleBlur('phone')}
                   value={values.phone}
+                  maxLength={13}
                   style={errorPhone ? styles.formInputPhoneRed: styles.formInputPhone}
                 />
                 <View style={styles.formTel}>
                     <Text style={styles.item}>{countryCode}</Text>
                 </View>
-                {/* <TouchableOpacity style={showCountryCode ? styles.formTelShow: styles.formTel}>
-                  <FlatList
-                    data={[
-                      {code: countryCode , key: countryCode},
-                      {code: '+44', key:1},
-                      {code: '+234' , key:2},
-                      {code: '+256' , key:3},
-                      {code: '+1', key:5},
-                      {code: '+35' , key:4},
-                    ]}
-                    renderItem={({item}) =>
-                      <Text style={styles.item}
-                      key={item.key}
-                      onPress={()=>{
-                        if(showCountryCode){
-                          setShowCountryCode(false)
-                        }
-                        else{
-                          setShowCountryCode(true)
-                        }
-                        setCountryCode(item.code)
-                      }}
-                      >
-                        {item.code}
-                      </Text>
-                    }
-                  />
-                  <Ionicons name="chevron-down" size={15} color="#F7B686" onPress={()=>{setShowCountryCode(true); }}/>
-                </TouchableOpacity> */}
+                
                 <Text style={styles.formText}>Password</Text>
                 <TextInput
                   onChangeText={handleChange('password')}
@@ -237,13 +217,24 @@ import { SignUp } from '../actions/index';
                 <Ionicons name="eye-off-outline" size={20} color="#094850" style={styles.formEye} onPress={()=>{setShowPassword(true)}}/>
                 }
                 {errorPassword !=""&& <Text style={styles.redText}>{errorPassword}</Text>}
-                
+                <Text style={styles.formText}>Referal Code</Text>
+                <TextInput
+                  onChangeText={handleChange('code')}
+                  onBlur={handleBlur('code')}
+                  value={values.code}
+                  style={styles.formInput}
+                  placeholder="e.g. WTU0000"
+                  maxLength={7}
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                />
                 <SignUpButton onPress={handleSubmit} buttonText="Create an Account" />
                 <Text style={styles.createText} onPress={()=>navigation.navigate("SignIn")}>Already have account? Log in</Text>
               </View>
             )}
           </Formik> 
-        </View>
+          </ScrollView>
+        </KeyboardAwareScrollView>
         
     )
 }
@@ -268,8 +259,11 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor:"#4F9A51",
-      padding:"7%",
-      paddingTop:"10%",
+      padding:"3%",
+      paddingTop:"7%",
+    },
+    cont:{
+      flex: 1,
     },
     spinnerTextStyle: {
       color: '#FFF',
@@ -287,8 +281,8 @@ const styles = StyleSheet.create({
       fontSize:20,
       fontFamily:'Rubik',
       color:"#ffffff",
-      marginBottom:30,
-      marginTop:30,
+      marginBottom:10,
+      marginTop:0,
     },
     errorText:{
       padding:"5%",
@@ -307,9 +301,10 @@ const styles = StyleSheet.create({
       backgroundColor:"#fff",
       marginTop:7,
       fontFamily:'Rubik',
-      marginBottom:20,
+      marginBottom:10,
       paddingLeft:10,
       paddingRight:40,
+      color: '#4B4B4B',
 
     },
     formInputPassword:{
@@ -323,6 +318,7 @@ const styles = StyleSheet.create({
       marginBottom:70,
       paddingLeft:10,
       paddingRight:40,
+      color: '#4B4B4B',
 
     },
     formInputRed:{
@@ -351,6 +347,7 @@ const styles = StyleSheet.create({
       marginBottom:20,
       paddingLeft:10,
       paddingRight:40,
+      color: '#4B4B4B',
 
     },
     formCountryRed:{
@@ -391,12 +388,13 @@ const styles = StyleSheet.create({
       marginTop:7,
       fontFamily:'Rubik',
       marginBottom:20,
-      paddingLeft:60,
+      paddingLeft:80,
       paddingRight:40,
+      color: '#4B4B4B',
 
     },
     formEye:{
-      marginTop:-55,
+      marginTop:-45,
       marginLeft:"90%",
       marginBottom:30,
     },
@@ -404,10 +402,11 @@ const styles = StyleSheet.create({
       backgroundColor:"#4F9A51",
       marginTop:-60,
       marginBottom:30,
-      width:"15%",
+      width:"20%",
       padding:7,
       borderRadius:5,
       marginLeft:5,
+      marginRight:10,
       height:34,
       flexDirection:"row"
     },

@@ -27,7 +27,8 @@ import YoutubePlayer from "react-native-youtube-iframe";
   const __claimBonus = () => {
     const data = {
       coin: coin,
-      user_id:user.user_id
+      user_id:user.user_id,
+      bonusName:bonusName
 
     }
     updateBonusStateApi(bonusName)

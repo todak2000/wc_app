@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
       paddingLeft:"5%",
       paddingRight:"5%",
       flexDirection:"column",
-      marginTop:10,
+      marginTop:30,
     },
 
     valueDiv:{

@@ -1,12 +1,12 @@
 import React from 'react'
-import {Text, ImageBackground, StyleSheet, View } from 'react-native'
+import {Text, ImageBackground, StyleSheet, View, Modal, TouchableOpacity } from 'react-native'
+
 
 
 
 const MarketCards = (props) => {
-    const {titleHeader,titleBody,titleFooter,image,price,}= props
-   
- 
+    const {titleHeader,titleBody,titleFooter,image,price}= props
+
 //   (titleBody.includes("netflix" || "howthorn") ) 
 
  // var icon = this.props.active
@@ -17,10 +17,15 @@ const MarketCards = (props) => {
 
 
     return (
-        <View  style={[styles.cardContainer, {
-            width:titleBody.includes("Netflix") || titleBody.includes("Howthorw") || titleBody.includes("gift") || titleBody.includes("Skincare")? 307.3 : 288,
-            height:titleBody.includes("Netflix") || titleBody.includes("Howthorw") || titleBody.includes("gift") || titleBody.includes("Skincare")? 140 : 138,
-            }]}>
+        <View  style={[styles.cardContainer, 
+            {width: 307.3,height:140,
+            // width:titleBody.includes("Netflix") || titleBody.includes("Howthorw") || titleBody.includes("gift") || titleBody.includes("Skincare")? 307.3 : 288,
+            // height:titleBody.includes("Netflix") || titleBody.includes("Howthorw") || titleBody.includes("gift") || titleBody.includes("Skincare")? 140 : 138,
+            }
+        ]}
+
+            >
+          
             {/* <View style={styles.leftHalf}> */} 
             <ImageBackground source={image} resizeMode='cover' imageStyle={{ borderBottomLeftRadius:10, borderTopLeftRadius:10,}}style={styles.image}>
             
@@ -34,8 +39,9 @@ const MarketCards = (props) => {
                 <Text style={styles.titleHeader}>
                     {titleHeader}
                 </Text>
-                <Text style={[styles.titleBody, {
-                    width: titleBody.includes("Netflix") || titleBody.includes("howthorn")? 140.15 : 124} 
+                <Text style={[styles.titleBody, {width: 140.15}
+                // {
+                //     width: titleBody.includes("Netflix") || titleBody.includes("howthorn")? 140.15 : 124} 
                     ]}>
                      {titleBody} 
                 </Text>
@@ -43,6 +49,8 @@ const MarketCards = (props) => {
                     {titleFooter}
                 </Text>
             </View>
+           
+
 
         </View>
     )

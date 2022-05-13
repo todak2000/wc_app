@@ -1,72 +1,67 @@
 import React from 'react'
-import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { FlatList, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import MarketSectionHeader from './MarketSectionHeader'
 import PartnersCard from './PartnersCard'
 import PictureCards from './PictureCards'
-
-const Partners = ({display}) => {
-
-    const yaya = require ("../../assets/YaYa.png") 
-    const eden = require ("../../assets/Eden.png") 
-    const netflixer = require ("../../assets/NetflixPartners.png") 
-    const youtuber = require ("../../assets/youtubePartners.png") 
-
-    const picture = require("../../assets/TheMarket.png")
-    const donation = require("../../assets/donation.png")
-    const handmade = require("../../assets/HandMade.png")
+import { Market } from "./DummyData";
 
 
-
+const Partners = ({display,navigation}) => {
 
     return (
         <View style={[styles.container, { display }]}>
              <MarketSectionHeader marketSection="Our Partners"/>
                <View >
-                   <PartnersCard
-                   backgroundColor="#D2FFCB"
-                    partnersID={yaya}
-                    partnerName="YAYA Market"
-                    partnerIndustry="Food Industry"
-                   />
-                    <PartnersCard
-                    backgroundColor="#ffffff"
-                    partnersID={eden}
-                    partnerName="Eden Crafts"
-                    partnerIndustry="Craft Industry"
-                   />
-                    <PartnersCard
-                    backgroundColor="#D2FFCB"
-                    partnersID={netflixer}
-                    partnerName="Netflix"
-                    partnerIndustry="Movies Industry"
-                   />
-                    <PartnersCard
-                    backgroundColor="#ffffff"
-                    partnersID={youtuber}
-                    partnerName="Youtube"
-                    partnerIndustry="Media Industry"
-                   />
+                    <FlatList
+                    keyExtractor={(item)=>item.id}
+                    data={Market?.[5].partnerData}
+                    renderItem={({item})=>(
+                    <TouchableOpacity 
+                        onPress={()=>{navigation.navigate("about_site",{item:item})}}
+                    >
+                      <PartnersCard
+                        key={item.id}
+                        index={item.id}
+                        partnersID={item.view}
+                        partnerName= {item.partnerName}
+                        partnerIndustry= {item.partnerIndustry}
+                       />
+                        </TouchableOpacity> 
+                    )}
+                        horizontal= {false}
+                        pagingEnabled
+                        scrollEnabled
+                        snapToAlignment='center'
+                        scrollEventThrottle={16}  
+                        decelerationRate={"fast"}
+                        showsHorizontalScrollIndicator={false}
+                />
                 </View>
                 <View style={{marginTop:10}}>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.rollOne}>
-                    <PictureCards
-                        backgroundColor='rgba(255, 8, 191, 0.58)'
-                        section ="Browse Donation"
-                        source={donation}
+                    <FlatList
+                    keyExtractor={(item)=>item.id}
+                    data={Market?.[4].bottomPictureCard}
+                    renderItem={({item})=>(
+                    <TouchableOpacity 
+                    // onPress={()=>{navigation.navigate("Purchase",{item:item})}}
+                    >
+                        <PictureCards
+                        key={item.id}
+                        index={item.id}
+                        section ={item.section}
+                        source={item.source}
                     />
-                    <PictureCards
-                        backgroundColor="rgba(255, 8, 191, 0.58)"
-                        section ="The Market Place"
-                        source={picture}
-                    />
-                    <PictureCards
-                      backgroundColor="rgba(9, 72, 80, 0.58)" 
-                      section = "Home Made Products" 
-                      source={handmade}
-                    />
-                    </ScrollView>  
+                        </TouchableOpacity> 
+                    )}
+                        horizontal
+                        pagingEnabled
+                        scrollEnabled
+                        snapToAlignment='center'
+                        scrollEventThrottle={16}  
+                        decelerationRate={"fast"}
+                        showsHorizontalScrollIndicator={false}
+                />
                 </View> 
-            {/* <Text>Partner</Text> */}
         </View>
     )
 }
